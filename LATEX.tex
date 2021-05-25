@@ -1,0 +1,92 @@
+% Tecnológico de Costa Rica 
+% Sistemas Operativos Avanzados 
+% 3er proyecto 
+% Scheduling en Tiempo Real 
+ 
+\documentclass{beamer} 
+\usetheme[progressbar=frametitle]{metropolis} 
+\setbeamertemplate{frame numbering}[fraction] 
+\useoutertheme{metropolis} 
+\useinnertheme{metropolis} 
+\usefonttheme{metropolis} 
+\usecolortheme{metropolis} 
+\usepackage[utf8]{inputenc} 
+\usepackage{lmodern} 
+\usepackage[T1]{fontenc} 
+\usepackage[spanish]{babel} 
+\usepackage{tikz} 
+\usepackage{natbib} 
+\usepackage{hyperref} 
+\usepackage{multirow} 
+\usepackage{colortbl} 
+\usepackage{helvet} 
+\usepackage[export]{adjustbox} % loads also graphicx 
+\usepackage{lipsum} 
+%Definiciones 
+\definecolor{color_columna_candidata}{rgb}{0, 0.424, 0.455} 
+\definecolor{color_pivote}{rgb}{0.973, 0.80, 0.341} 
+\definecolor{color_blanco}{rgb}{1,1,1} 
+% Commands 
+\newcommand\tab[1][1cm]{\hspace*{#1}}  
+\newcommand\minitab[1][0.5cm]{\hspace*{#1}}  
+% Tittle information 
+\title{Scheduling en Tiempo Real} 
+\subtitle{Sistemas Operativos Avanzados} 
+\author[A. \& D. \& E.]{% 
+\texorpdfstring{% 
+\begin{columns} 
+\column{.33\linewidth} 
+\centering 
+\\  Nicole Carvajal \\ 
+\column{.33\linewidth} 
+\centering 
+\\  Rubén González \\ 
+\column{.33\linewidth} 
+\centering 
+\\ Edisson López \\ 
+\end{columns} 
+\begin{columns} 
+\column{.2\linewidth} 
+\centering 
+\\  Otto Mena \\ 
+\column{.2\linewidth} 
+\centering 
+\\  Cristina Soto  \\ 
+\end{columns} 
+} 
+{Author 1, Author 2, Author 3} 
+} 
+\date{} 
+\institute{% 
+\texorpdfstring{% 
+\begin{columns} 
+\column{.9\linewidth} 
+\centering 
+\\ 
+Tecnológico de Costa Rica \\ 
+Maestría de Ciencias de la Computación \\ 
+Semestre 1, 2021 
+\end{columns} 
+} 
+} 
+%Inicio del documento 
+\begin{document} 
+
+% - - 1st Slide - - ; 
+% - - Cover - - - - ; 
+\begin{frame}[plain,t] 
+\maketitle 
+\end{frame} 
+
+
+% - - - - - - - - - ;
+% - - - - 2 - - - - ;
+% Breve introducción del proyecto 
+\section{Scheduling en Tiempo Real}
+\begin{frame}
+Simulación del comportamiento de varios algoritmos de scheduling clásicos para Sistemas Operativos de Tiempo Real (RTOS). Con una interaz gráfica hecha con GTK y generación de una presentación Beamer como salida.
+\end{frame}
+
+\end{document}
+% } DOCUMENT 
+% Última línea del documento
