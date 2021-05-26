@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <math.h>
 
 //Máximo Común Divisor
 int MCD(int x, int y)
@@ -18,6 +19,24 @@ int MCM(int x, int y)
     return (x * y) / MCD(x, y);
 }
 
+//Parte Izquierda de Schedulable
+double U(int n, int c[], int p[])
+{
+    double result = 0;
+    for (int i = 0; i < n; i++)
+    {
+        result += (double)c[i] / (double)p[i];
+    }
+    return result;
+}
+
+//Parte Derecha de Schedulable
+double schedulable(double n)
+{
+    return n * (pow(2, 1 / n) - 1);
+}
+
+//Rate Monotonic
 void rateMonotonic(int n, int m, int c[], int p[], int result[n][m])
 {
     //Initialize Configuration
