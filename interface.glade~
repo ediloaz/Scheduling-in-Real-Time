@@ -33,6 +33,7 @@
           <object class="GtkLabel">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="margin_bottom">10</property>
             <property name="label" translatable="yes">Seleccione la cantidad de tareas a ejecutar</property>
           </object>
           <packing>
@@ -46,13 +47,14 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <child>
-              <object class="GtkRadioButton" id="radioTareas1">
+              <object class="GtkRadioButton" id="radio_tareas_1">
                 <property name="label" translatable="yes">1</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
+                <signal name="pressed" handler="onClickRadioTareas1" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -60,14 +62,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="radioTareas2">
+              <object class="GtkRadioButton" id="radio_tareas_2">
                 <property name="label" translatable="yes">2</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
-                <property name="group">radioTareas1</property>
+                <property name="group">radio_tareas_1</property>
+                <signal name="pressed" handler="onClickRadioTareas2" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -75,14 +78,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="radioTareas3">
+              <object class="GtkRadioButton" id="radio_tareas_3">
                 <property name="label" translatable="yes">3</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
-                <property name="group">radioTareas1</property>
+                <property name="group">radio_tareas_1</property>
+                <signal name="pressed" handler="onClickRadioTareas3" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -90,14 +94,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="radioTareas4">
+              <object class="GtkRadioButton" id="radio_tareas_4">
                 <property name="label" translatable="yes">4</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
-                <property name="group">radioTareas1</property>
+                <property name="group">radio_tareas_1</property>
+                <signal name="pressed" handler="onClickRadioTareas4" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">4</property>
@@ -105,14 +110,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="radioTareas5">
+              <object class="GtkRadioButton" id="radio_tareas_5">
                 <property name="label" translatable="yes">5</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
-                <property name="group">radioTareas1</property>
+                <property name="group">radio_tareas_1</property>
+                <signal name="pressed" handler="onClickRadioTareas5" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">5</property>
@@ -120,14 +126,15 @@
               </packing>
             </child>
             <child>
-              <object class="GtkRadioButton" id="radioTareas6">
+              <object class="GtkRadioButton" id="radio_tareas_6">
                 <property name="label" translatable="yes">6</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
-                <property name="group">radioTareas1</property>
+                <property name="group">radio_tareas_1</property>
+                <signal name="pressed" handler="onClickRadioTareas6" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">6</property>
@@ -135,12 +142,12 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaE1">
+              <object class="GtkEntry" id="entry_tarea_tiempo_1">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
-                <property name="placeholder_text" translatable="yes">e1</property>
-                <property name="input_purpose">digits</property>
+                <property name="halign">center</property>
+                <property name="placeholder_text" translatable="yes">c1</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -151,6 +158,8 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="margin_right">5</property>
                 <property name="label" translatable="yes">Tiempo de ejecución</property>
               </object>
               <packing>
@@ -162,6 +171,8 @@
               <object class="GtkLabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="margin_right">5</property>
                 <property name="label" translatable="yes">Período</property>
               </object>
               <packing>
@@ -170,11 +181,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaE2">
+              <object class="GtkEntry" id="entry_tarea_tiempo_2">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">1</property>
-                <property name="placeholder_text" translatable="yes">e2</property>
+                <property name="placeholder_text" translatable="yes">c2</property>
                 <property name="input_purpose">digits</property>
               </object>
               <packing>
@@ -183,11 +194,10 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaE3">
+              <object class="GtkEntry" id="entry_tarea_tiempo_3">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">1</property>
-                <property name="placeholder_text" translatable="yes">e3</property>
                 <property name="input_purpose">digits</property>
               </object>
               <packing>
@@ -196,11 +206,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaE4">
+              <object class="GtkEntry" id="entry_tarea_tiempo_4">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">1</property>
-                <property name="placeholder_text" translatable="yes">e4</property>
+                <property name="placeholder_text" translatable="yes">c4</property>
                 <property name="input_purpose">digits</property>
               </object>
               <packing>
@@ -209,11 +219,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaE5">
+              <object class="GtkEntry" id="entry_tarea_tiempo_5">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">1</property>
-                <property name="placeholder_text" translatable="yes">e5</property>
+                <property name="placeholder_text" translatable="yes">c5</property>
                 <property name="input_purpose">digits</property>
               </object>
               <packing>
@@ -222,11 +232,11 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaE6">
+              <object class="GtkEntry" id="entry_tarea_tiempo_6">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">1</property>
-                <property name="placeholder_text" translatable="yes">e6</property>
+                <property name="placeholder_text" translatable="yes">c6</property>
                 <property name="input_purpose">digits</property>
               </object>
               <packing>
@@ -235,7 +245,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaP1">
+              <object class="GtkEntry" id="entry_tarea_periodo_1">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">1</property>
@@ -248,7 +258,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaP2">
+              <object class="GtkEntry" id="entry_tarea_periodo_2">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">1</property>
@@ -261,7 +271,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaP3">
+              <object class="GtkEntry" id="entry_tarea_periodo_3">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">1</property>
@@ -274,7 +284,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaP4">
+              <object class="GtkEntry" id="entry_tarea_periodo_4">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">1</property>
@@ -287,7 +297,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaP5">
+              <object class="GtkEntry" id="entry_tarea_periodo_5">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">1</property>
@@ -300,7 +310,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkEntry" id="entryTareaP6">
+              <object class="GtkEntry" id="entry_tarea_periodo_6">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="max_length">1</property>
@@ -323,7 +333,17 @@
           </packing>
         </child>
         <child>
-          <placeholder/>
+          <object class="GtkSeparator">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">30</property>
+            <property name="margin_bottom">30</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">2</property>
+          </packing>
         </child>
         <child>
           <object class="GtkGrid">
@@ -344,50 +364,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="halign">end</property>
-                <property name="margin_right">20</property>
-                <property name="label" translatable="yes">Algoritmos por slides: </property>
-                <property name="justify">right</property>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="radioSlideSeparados">
-                <property name="label" translatable="yes">Por separados</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">3</property>
-                <property name="top_attach">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkRadioButton" id="radioSlideJuntos">
-                <property name="label" translatable="yes">Juntos</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="active">True</property>
-                <property name="draw_indicator">True</property>
-                <property name="group">radioSlideSeparados</property>
-              </object>
-              <packing>
-                <property name="left_attach">3</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="checkAlg1">
+              <object class="GtkCheckButton" id="check_algoritmo_1">
                 <property name="label" translatable="yes">RM: Rate Monothonic</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -400,7 +377,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="checkAlg2">
+              <object class="GtkCheckButton" id="check_algoritmo_2">
                 <property name="label" translatable="yes">EDF: Earliest Deadline First</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -413,7 +390,7 @@
               </packing>
             </child>
             <child>
-              <object class="GtkCheckButton" id="checkAlg3">
+              <object class="GtkCheckButton" id="check_algoritmo_3">
                 <property name="label" translatable="yes">LLF: Least Laxity First</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
@@ -422,6 +399,88 @@
               </object>
               <packing>
                 <property name="left_attach">1</property>
+                <property name="top_attach">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="radio_slides_separados">
+                <property name="label" translatable="yes">Por separados</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">4</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkRadioButton" id="radio_slides_juntos">
+                <property name="label" translatable="yes">Juntos</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">False</property>
+                <property name="active">True</property>
+                <property name="draw_indicator">True</property>
+                <property name="group">radio_slides_separados</property>
+              </object>
+              <packing>
+                <property name="left_attach">4</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">end</property>
+                <property name="margin_right">20</property>
+                <property name="label" translatable="yes">Algoritmos por slides: </property>
+                <property name="justify">right</property>
+              </object>
+              <packing>
+                <property name="left_attach">3</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">30</property>
+                <property name="margin_right">30</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">30</property>
+                <property name="margin_right">30</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="margin_left">30</property>
+                <property name="margin_right">30</property>
+                <property name="orientation">vertical</property>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
                 <property name="top_attach">2</property>
               </packing>
             </child>
@@ -448,16 +507,34 @@
           </packing>
         </child>
         <child>
-          <object class="GtkButton">
-            <property name="label" translatable="yes">Ejecutar</property>
+          <placeholder/>
+        </child>
+        <child>
+          <object class="GtkSeparator">
             <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="receives_default">True</property>
+            <property name="can_focus">False</property>
+            <property name="margin_top">30</property>
+            <property name="margin_bottom">30</property>
           </object>
           <packing>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="position">5</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkButton">
+            <property name="label" translatable="yes">Ejecutar</property>
+            <property name="name">btn_iniciar</property>
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="receives_default">True</property>
+            <signal name="clicked" handler="IniciarEjecucion" swapped="no"/>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="position">6</property>
           </packing>
         </child>
       </object>
