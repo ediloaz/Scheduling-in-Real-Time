@@ -4,14 +4,34 @@
 
 
 
-/* 
-
+/*
 TODO: 
     + Que solo acepte números en las entradas
+    + Validaciones:
+        1. Tiempo de ejecución más peque que el período
+        2. Que escoja el menos un algoritmo.
+
+DONE:
+    + Variables para guardado de las entradas.
+        1. INT: [n] Cantidad de tareas 
+        2. Array de INT: [tiempos] de c (tiempos)
+        3. Array de INT: [periodos] de p (períodos)
+        4. Array de INT: [algoritmosUsados]
+        5. Bool: [sonSlidesPorSepado] ¿son slides por separado? 
+
 
 COMANDO PARA CORRER:
 gcc -o interface interface.c -lm -Wall `pkg-config --cflags --libs gtk+-3.0` -export-dynamic ; ./interface
+
 */
+
+
+// Constantes
+int cantidadTareasSeleccionadas = 1;
+int sonSlidesPorSepado = 1; 
+int algoritmosUsados[3] = {0,0,0};
+int tiempos[6] = {0,0,0,0,0,0};
+int periodos[6] = {0,0,0,0,0,0};
 
 
 //Inicialización de los componentes en Interfaz
@@ -51,7 +71,46 @@ void PrintInt(int value){
 
 void IniciarEjecucion(){ 
     // Definición de los parámetros en variables
+    tiempos[0] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_1)));
+    tiempos[1] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_2)));
+    tiempos[2] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_3)));
+    tiempos[3] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_4)));
+    tiempos[4] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_5)));
+    tiempos[5] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_6)));
+    periodos[0] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_1)));
+    periodos[1] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_2)));
+    periodos[2] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_3)));
+    periodos[3] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_4)));
+    periodos[4] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_5)));
+    periodos[5] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_6)));
+    
+    printf("\n\n--------------------\nParámetros recibidos: \n");
 
+    printf("Cantidad de tareas: %d \n", cantidadTareasSeleccionadas);
+    printf("Tiempos por cada tarea: \n");
+    for (int i=0; i<cantidadTareasSeleccionadas ; i++){
+        printf("\t Tarea %d: %d\n", i+1, tiempos[i]);
+    }
+    printf("Períodos por cada tarea: \n");
+    for (int i=0; i<cantidadTareasSeleccionadas ; i++){
+        printf("\t Tarea %d: %d\n", i+1, periodos[i]);
+    }
+    printf("Algoritmos usados: \n");
+    printf("\t + 1. RM: Rate Monothonic: %s \n", algoritmosUsados[0]==1 ? "Sí" : "No");
+    printf("\t + 2. EDF: Earliest Deadline First: %s \n", algoritmosUsados[1]==1 ? "Sí" : "No");
+    printf("\t + 3. LLF: Least Laxity First: %s \n", algoritmosUsados[2]==1 ? "Sí" : "No");
+
+    printf("\n Algoritmos a mostrar %s \n", sonSlidesPorSepado==1 ? "en slides separados" : "juntos en un solo slide");
+    
+    printf("\n-------------------- \n\n");
+
+    // VARIABLES PARA USAR EN LA INTEGRACIÓN: 
+    int n = cantidadTareasSeleccionadas;
+    int c[6] = tiempos;
+    int p[6] = periodos;
+    
+    // sonSlidesPorSepado                   // Su valor puede ser 1 o 0.
+    // algoritmosUsados[3] = {0,0,0}        // Ceros(0) si no se está usando, unos(1) si sí.
 }
 
 void onClickRadioTareas(int numeroDeTareas)
@@ -132,12 +191,20 @@ void onClickRadioTareas(int numeroDeTareas)
     }
     RefrescarInterfaz();
 }
-void onClickRadioTareas1(){ onClickRadioTareas(1); }
-void onClickRadioTareas2(){ onClickRadioTareas(2); }
-void onClickRadioTareas3(){ onClickRadioTareas(3); }
-void onClickRadioTareas4(){ onClickRadioTareas(4); }
-void onClickRadioTareas5(){ onClickRadioTareas(5); }
-void onClickRadioTareas6(){ onClickRadioTareas(6); }
+
+void onClickRadioTareas1(){ cantidadTareasSeleccionadas = 1; onClickRadioTareas(1); }
+void onClickRadioTareas2(){ cantidadTareasSeleccionadas = 2; onClickRadioTareas(2); }
+void onClickRadioTareas3(){ cantidadTareasSeleccionadas = 3; onClickRadioTareas(3); }
+void onClickRadioTareas4(){ cantidadTareasSeleccionadas = 4; onClickRadioTareas(4); }
+void onClickRadioTareas5(){ cantidadTareasSeleccionadas = 5; onClickRadioTareas(5); }
+void onClickRadioTareas6(){ cantidadTareasSeleccionadas = 6; onClickRadioTareas(6); }
+
+void onClickRadioAlgoritmosPorSeparado(){ sonSlidesPorSepado = 1; }
+void onClickRadioAlgoritmosJuntos(){ sonSlidesPorSepado = 0; }
+
+void onClickCheckboxAlg1(){ algoritmosUsados[0] = algoritmosUsados[0]==0 ? 1 : 0; }
+void onClickCheckboxAlg2(){ algoritmosUsados[1] = algoritmosUsados[1]==0 ? 1 : 0; }
+void onClickCheckboxAlg3(){ algoritmosUsados[2] = algoritmosUsados[2]==0 ? 1 : 0; }
 
 
 // Revisa si algún evento está pendiente de actualizar y lo actualiza.

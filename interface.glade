@@ -360,6 +360,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="draw_indicator">True</property>
+                <signal name="pressed" handler="onClickCheckboxAlg1" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -373,6 +374,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="draw_indicator">True</property>
+                <signal name="pressed" handler="onClickCheckboxAlg2" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -386,6 +388,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="draw_indicator">True</property>
+                <signal name="pressed" handler="onClickCheckboxAlg3" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -400,6 +403,7 @@
                 <property name="receives_default">False</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
+                <signal name="pressed" handler="onClickRadioAlgoritmosPorSeparado" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">4</property>
@@ -415,6 +419,7 @@
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
                 <property name="group">radio_slides_separados</property>
+                <signal name="pressed" handler="onClickRadioAlgoritmosJuntos" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">4</property>

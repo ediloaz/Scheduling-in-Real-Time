@@ -184,9 +184,8 @@
               <object class="GtkEntry" id="entry_tarea_tiempo_2">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
                 <property name="placeholder_text" translatable="yes">c2</property>
-                <property name="input_purpose">digits</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -197,9 +196,8 @@
               <object class="GtkEntry" id="entry_tarea_tiempo_3">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
                 <property name="placeholder_text" translatable="yes">c3</property>
-                <property name="input_purpose">digits</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -210,9 +208,8 @@
               <object class="GtkEntry" id="entry_tarea_tiempo_4">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
                 <property name="placeholder_text" translatable="yes">c4</property>
-                <property name="input_purpose">digits</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">4</property>
@@ -223,9 +220,8 @@
               <object class="GtkEntry" id="entry_tarea_tiempo_5">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
                 <property name="placeholder_text" translatable="yes">c5</property>
-                <property name="input_purpose">digits</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">5</property>
@@ -236,9 +232,8 @@
               <object class="GtkEntry" id="entry_tarea_tiempo_6">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
                 <property name="placeholder_text" translatable="yes">c6</property>
-                <property name="input_purpose">digits</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">6</property>
@@ -249,9 +244,8 @@
               <object class="GtkEntry" id="entry_tarea_periodo_1">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
                 <property name="placeholder_text" translatable="yes">p1</property>
-                <property name="input_purpose">digits</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -262,9 +256,8 @@
               <object class="GtkEntry" id="entry_tarea_periodo_2">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
                 <property name="placeholder_text" translatable="yes">p2</property>
-                <property name="input_purpose">digits</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -275,9 +268,8 @@
               <object class="GtkEntry" id="entry_tarea_periodo_3">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
                 <property name="placeholder_text" translatable="yes">p3</property>
-                <property name="input_purpose">digits</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -288,9 +280,8 @@
               <object class="GtkEntry" id="entry_tarea_periodo_4">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
                 <property name="placeholder_text" translatable="yes">p4</property>
-                <property name="input_purpose">digits</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">4</property>
@@ -301,9 +292,8 @@
               <object class="GtkEntry" id="entry_tarea_periodo_5">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
                 <property name="placeholder_text" translatable="yes">p5</property>
-                <property name="input_purpose">digits</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">5</property>
@@ -314,9 +304,8 @@
               <object class="GtkEntry" id="entry_tarea_periodo_6">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="max_length">1</property>
                 <property name="placeholder_text" translatable="yes">p6</property>
-                <property name="input_purpose">digits</property>
+                <property name="input_purpose">number</property>
               </object>
               <packing>
                 <property name="left_attach">6</property>
@@ -371,6 +360,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="draw_indicator">True</property>
+                <signal name="pressed" handler="onClickCheckboxAlg1" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -384,6 +374,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="draw_indicator">True</property>
+                <signal name="pressed" handler="onClickCheckboxAlg2" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -397,6 +388,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">False</property>
                 <property name="draw_indicator">True</property>
+                <signal name="pressed" handler="onClickCheckboxAlg3" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -411,6 +403,7 @@
                 <property name="receives_default">False</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
+                <signal name="pressed" handler="onClickRadioAlgoritmosPorSeparado" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">4</property>
@@ -426,6 +419,7 @@
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
                 <property name="group">radio_slides_separados</property>
+                <signal name="pressed" handler="onClickRadioAlgoritmosJuntos" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">4</property>
