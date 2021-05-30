@@ -38,26 +38,23 @@ double schedulable(double n)
     return 1;
 }
 
-void insertionSort(int p[], int n, int step, int indx[])
+void insertionSort(int arr[], int indx[], int n,  int actual )
 {
-    //indx es un arreglo de enteros consecutivos de tamaño n (ej: {0,1,2})
-    //step es el paso por donde va ejecutandose a lo largo de la matriz de largo m (es j)
-
-    //calcula en arr tiempo restante hasta deadline de cada proceso
-    //Es el criterio que usar para ordenar
-    int arr[n];
-    for(int k = 0; k<n; k++){
-    	arr[k] = p[k] - step % p[k];        
-    }    
+    /* - arr es el arreglo con los datos que se usan como criterio para el ordenamiento
+       - indx es un arreglo de enteros consecutivos de tamaño n (ej: {0,1,2})
+       - actual es el proceso en ejecución. Se usa para desempates 
+    	    (actual tiene prioridad) (si actual = -1, no se toma en cuenta)
+    */
     
-    //Orden arr y, al mismo tiempo, los índices de arr en indx    
+    //Orden arr y, al mismo tiempo, indx    
     int i, key, j, keyIndx;
     for(i = 1; i< n; i++){
     	key = arr[i];
     	keyIndx = indx[i];
     	j = i - 1;
     	
-    	while(j >= 0 && arr[j] > key){
+    	while(j >= 0 && (arr[j] > key || (arr[j] == key && i == actual))){
+    	    
     	    arr[j + 1] = arr[j];
     	    indx[j + 1] = indx[j];
     	    j = j - 1;
@@ -73,6 +70,8 @@ void earliestDeadlineFirst(int n, int m, int c[], int p[], int result[n][m])
     //Initialize Configuration
     int progress[n];
     int indx[n];
+    int actual = -1;
+    int arr[n];    
     for (int i = 0; i < n + 1; i++)
     {
         for (int j = 0; j < m; j++)
@@ -104,8 +103,9 @@ void earliestDeadlineFirst(int n, int m, int c[], int p[], int result[n][m])
         }
         
         //Set priorities
-        for(int i=0; i< n; i++) indx[i] = i;
-        insertionSort(p, n, j, indx);
+        for(int i=0; i< n; i++){ indx[i] = i; arr[i] = p[i] - j % p[i]; }
+        
+        insertionSort(arr, indx, n, actual);
         
         //Simulate Execution: cambiar orden para que sea el de EDF
         for (int i = 0; i < n && stop == 0; i++)
@@ -114,6 +114,7 @@ void earliestDeadlineFirst(int n, int m, int c[], int p[], int result[n][m])
             {
                 result[indx[i]][j] = 1;
                 progress[indx[i]]--;
+                actual = progress[indx[i]] == 0 ? -1 : indx[i];
                 break;
             }
         }
@@ -123,10 +124,10 @@ void earliestDeadlineFirst(int n, int m, int c[], int p[], int result[n][m])
 
 int main()
 {
-    int n = 3;
+    int n = 2;
 
-    int c[] = {1, 2, 6};
-    int p[] = {5, 8, 19};
+    int c[] = {3,4};
+    int p[] = {6,9};
 
     
     //Calculate MCM
