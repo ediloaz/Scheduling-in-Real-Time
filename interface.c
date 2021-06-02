@@ -6,12 +6,14 @@
 
 /*
 TODO: 
-    + Que solo acepte números en las entradas
     + Validaciones:
-        1. Tiempo de ejecución más peque que el período
         2. Que escoja el menos un algoritmo.
+        3. Que solo acepte números en las entradas
 
 DONE:
+    + Validaciones:
+        1. Tiempo de ejecución más peque que el período
+        
     + Variables para guardado de las entradas.
         1. INT: [n] Cantidad de tareas 
         2. Array de INT: [tiempos] de c (tiempos)
