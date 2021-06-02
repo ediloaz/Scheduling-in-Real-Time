@@ -152,12 +152,12 @@ void schedulingAlgorithm(int n, int m, int c[], int p[], int result[n][m], int t
 /*
 TODO: 
     + Validaciones:
-        2. Que escoja el menos un algoritmo.
         3. Que solo acepte números en las entradas
 
 DONE:
     + Validaciones:
         1. Tiempo de ejecución más peque que el período
+        2. Que escoja el menos un algoritmo.
 
     + Variables para guardado de las entradas.
         1. INT: [n] Cantidad de tareas 
