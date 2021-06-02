@@ -3,13 +3,70 @@
 #include <glib/gtypes.h>
 #include <stdio.h>
 #include <math.h>
+#include <ctype.h>
 
 
 
+/*
+
+COMANDO PARA CORRER:
+gcc -o interface interface.c -lm -Wall `pkg-config --cflags --libs gtk+-3.0` -export-dynamic ; ./interface
+
+*/
+
+
+// Variables globales
+int cantidadTareasSeleccionadas = 1;
+int sonSlidesPorSepado = 1; 
+int algoritmosUsados[3] = {0,0,0};
+int tiempos[6] = {0,0,0,0,0,0};
+int periodos[6] = {0,0,0,0,0,0};
+
+
+// Inicialización de los componentes en Interfaz
+GtkBuilder *builder;
+GtkWidget *window;
+GtkWidget *g_lbl_nombreBuffer;
+GtkWidget *g_radio_tareas_1;
+GtkWidget *g_radio_tareas_2;
+GtkWidget *g_radio_tareas_3;
+GtkWidget *g_radio_tareas_4;
+GtkWidget *g_radio_tareas_5;
+GtkWidget *g_radio_tareas_6;
+GtkWidget *g_entry_tarea_tiempo_1;
+GtkWidget *g_entry_tarea_tiempo_2;
+GtkWidget *g_entry_tarea_tiempo_3;
+GtkWidget *g_entry_tarea_tiempo_4;
+GtkWidget *g_entry_tarea_tiempo_5;
+GtkWidget *g_entry_tarea_tiempo_6;
+GtkWidget *g_entry_tarea_periodo_1;
+GtkWidget *g_entry_tarea_periodo_2;
+GtkWidget *g_entry_tarea_periodo_3;
+GtkWidget *g_entry_tarea_periodo_4;
+GtkWidget *g_entry_tarea_periodo_5;
+GtkWidget *g_entry_tarea_periodo_6;
+GtkWidget *g_check_algoritmo_1;
+GtkWidget *g_check_algoritmo_2;
+GtkWidget *g_check_algoritmo_3;
+GtkWidget *g_radio_slides_separados;
+GtkWidget *g_radio_slides_juntos;
+GtkWidget *g_btn_iniciar;
+GtkWidget *g_msj_error_1;
+GtkWidget *g_msj_error_2;
+GtkWidget *g_msj_error_3;
+GtkWidget *g_msj_error_4;
+GtkWidget *g_msj_error_5;
+GtkWidget *g_msj_error_6;
 
 
 
-//Compilar: gcc EDF.c -o edf -lm
+// Utilidades para pruebas durante el desarrollo
+void PrintInt(int value){
+    char stringValue[100];
+    sprintf(stringValue, "%d", value);
+    printf("%s", stringValue);
+}
+
 
 //Máximo Común Divisor
 int MCD(int x, int y)
@@ -146,42 +203,6 @@ void schedulingAlgorithm(int n, int m, int c[], int p[], int result[n][m], int t
     
 }
 
-
-
-
-/*
-TODO: 
-    + Validaciones:
-        3. Que solo acepte números en las entradas
-
-DONE:
-    + Validaciones:
-        1. Tiempo de ejecución más peque que el período
-        2. Que escoja el menos un algoritmo.
-
-    + Variables para guardado de las entradas.
-        1. INT: [n] Cantidad de tareas 
-        2. Array de INT: [tiempos] de c (tiempos)
-        3. Array de INT: [periodos] de p (períodos)
-        4. Array de INT: [algoritmosUsados]
-        5. Bool: [sonSlidesPorSepado] ¿son slides por separado? 
-
-
-COMANDO PARA CORRER:
-gcc -o interface interface.c -lm -Wall `pkg-config --cflags --libs gtk+-3.0` -export-dynamic ; ./interface
-
-*/
-
-
-// Constantes
-int cantidadTareasSeleccionadas = 1;
-int sonSlidesPorSepado = 1; 
-int algoritmosUsados[3] = {0,0,0};
-int tiempos[6] = {0,0,0,0,0,0};
-int periodos[6] = {0,0,0,0,0,0};
-
-
-
 int ALGORITMO_GENERAL()
 {
     int n = cantidadTareasSeleccionadas;
@@ -198,7 +219,8 @@ int ALGORITMO_GENERAL()
     for (int i = 0; i<3 ; i++ ){
         if (algoritmosUsados[i]){
             schedulingAlgorithm(cantidadTareasSeleccionadas, m, tiempos, periodos, result, i);
-            //Print Result
+            
+            // Print TEMPORAL del Resultado
             for (int i = 0; i < n + 1; i++)
             {
                 for (int j = 0; j < m; j++)
@@ -214,8 +236,6 @@ int ALGORITMO_GENERAL()
         }
     }
 
-    
-
     return 0;
 }
 
@@ -223,46 +243,164 @@ int ALGORITMO_GENERAL()
 
 
 
-//Inicialización de los componentes en Interfaz
-GtkBuilder *builder;
-GtkWidget *window;
-GtkWidget *g_lbl_nombreBuffer;
-GtkWidget *g_radio_tareas_1;
-GtkWidget *g_radio_tareas_2;
-GtkWidget *g_radio_tareas_3;
-GtkWidget *g_radio_tareas_4;
-GtkWidget *g_radio_tareas_5;
-GtkWidget *g_radio_tareas_6;
-GtkWidget *g_entry_tarea_tiempo_1;
-GtkWidget *g_entry_tarea_tiempo_2;
-GtkWidget *g_entry_tarea_tiempo_3;
-GtkWidget *g_entry_tarea_tiempo_4;
-GtkWidget *g_entry_tarea_tiempo_5;
-GtkWidget *g_entry_tarea_tiempo_6;
-GtkWidget *g_entry_tarea_periodo_1;
-GtkWidget *g_entry_tarea_periodo_2;
-GtkWidget *g_entry_tarea_periodo_3;
-GtkWidget *g_entry_tarea_periodo_4;
-GtkWidget *g_entry_tarea_periodo_5;
-GtkWidget *g_entry_tarea_periodo_6;
-GtkWidget *g_check_algoritmo_1;
-GtkWidget *g_check_algoritmo_2;
-GtkWidget *g_check_algoritmo_3;
-GtkWidget *g_radio_slides_separados;
-GtkWidget *g_radio_slides_juntos;
-GtkWidget *g_btn_iniciar;
-GtkWidget *g_msj_error_1;
-GtkWidget *g_msj_error_2;
-GtkWidget *g_msj_error_3;
-GtkWidget *g_msj_error_4;
-GtkWidget *g_msj_error_5;
-GtkWidget *g_msj_error_6;
 
-void PrintInt(int value){
-    char stringValue[100];
-    sprintf(stringValue, "%d", value);
-    printf("%s", stringValue);
+
+
+
+
+
+
+
+int digits_only(const char *s){
+    while (*s) {
+        if (isdigit(*s++) == 0) {
+            return 0;
+        }
+    }
+    return 1;
 }
+
+int ValidarEntradasNumericas(){ 
+    GtkStyleContext *context;
+    int esValido = 1; 
+    
+    const gchar * valorTarea1_c = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_1));
+    context = gtk_widget_get_style_context(g_entry_tarea_tiempo_1);
+    if (digits_only(valorTarea1_c)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    const gchar * valorTarea1_p = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_1));
+    context = gtk_widget_get_style_context(g_entry_tarea_periodo_1);
+    if (digits_only(valorTarea1_p)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        esValido = 0;
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    // Mensaje de error compartido
+    if (digits_only(valorTarea1_c) && digits_only(valorTarea1_p)){
+        gtk_widget_set_child_visible(g_msj_error_1, false); gtk_label_set_text(GTK_LABEL(g_msj_error_1), "Tiempo debe ser \n menor al período");
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_1, true); gtk_label_set_text(GTK_LABEL(g_msj_error_1), "Solo números");
+    }
+
+    const gchar * valorTarea2_c = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_2));
+    context = gtk_widget_get_style_context(g_entry_tarea_tiempo_2);
+    if (digits_only(valorTarea2_c)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    const gchar * valorTarea2_p = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_2));
+    context = gtk_widget_get_style_context(g_entry_tarea_periodo_2);
+    if (digits_only(valorTarea2_p)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        esValido = 0;
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    // Mensaje de error compartido
+    if (digits_only(valorTarea2_c) && digits_only(valorTarea2_p)){
+        gtk_widget_set_child_visible(g_msj_error_2, false); gtk_label_set_text(GTK_LABEL(g_msj_error_2), "Tiempo debe ser \n menor al período");
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_2, true); gtk_label_set_text(GTK_LABEL(g_msj_error_2), "Solo números");
+    }
+
+    const gchar * valorTarea3_c = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_3));
+    context = gtk_widget_get_style_context(g_entry_tarea_tiempo_3);
+    if (digits_only(valorTarea3_c)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    const gchar * valorTarea3_p = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_3));
+    context = gtk_widget_get_style_context(g_entry_tarea_periodo_3);
+    if (digits_only(valorTarea3_p)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        esValido = 0;
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    // Mensaje de error compartido
+    if (digits_only(valorTarea3_c) && digits_only(valorTarea3_p)){
+        gtk_widget_set_child_visible(g_msj_error_3, false); gtk_label_set_text(GTK_LABEL(g_msj_error_3), "Tiempo debe ser \n menor al período");
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_3, true); gtk_label_set_text(GTK_LABEL(g_msj_error_3), "Solo números");
+    }
+
+    const gchar * valorTarea4_c = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_4));
+    context = gtk_widget_get_style_context(g_entry_tarea_tiempo_4);
+    if (digits_only(valorTarea4_c)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    const gchar * valorTarea4_p = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_4));
+    context = gtk_widget_get_style_context(g_entry_tarea_periodo_4);
+    if (digits_only(valorTarea4_p)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        esValido = 0;
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    // Mensaje de error compartido
+    if (digits_only(valorTarea4_c) && digits_only(valorTarea4_p)){
+        gtk_widget_set_child_visible(g_msj_error_4, false); gtk_label_set_text(GTK_LABEL(g_msj_error_4), "Tiempo debe ser \n menor al período");
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_4, true); gtk_label_set_text(GTK_LABEL(g_msj_error_4), "Solo números");
+    }
+
+    const gchar * valorTarea5_c = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_5));
+    context = gtk_widget_get_style_context(g_entry_tarea_tiempo_5);
+    if (digits_only(valorTarea5_c)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    const gchar * valorTarea5_p = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_5));
+    context = gtk_widget_get_style_context(g_entry_tarea_periodo_5);
+    if (digits_only(valorTarea5_p)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        esValido = 0;
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    // Mensaje de error compartido
+    if (digits_only(valorTarea5_c) && digits_only(valorTarea5_p)){
+        gtk_widget_set_child_visible(g_msj_error_5, false); gtk_label_set_text(GTK_LABEL(g_msj_error_5), "Tiempo debe ser \n menor al período");
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_5, true); gtk_label_set_text(GTK_LABEL(g_msj_error_5), "Solo números");
+    }
+
+    const gchar * valorTarea6_c = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_6));
+    context = gtk_widget_get_style_context(g_entry_tarea_tiempo_6);
+    if (digits_only(valorTarea6_c)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    const gchar * valorTarea6_p = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_6));
+    context = gtk_widget_get_style_context(g_entry_tarea_periodo_6);
+    if (digits_only(valorTarea6_p)){
+        gtk_style_context_add_class(context,"exitoEntrada"); gtk_style_context_remove_class(context,"errorEntrada");
+    }else{
+        esValido = 0;
+        gtk_style_context_remove_class(context,"exitoEntrada"); gtk_style_context_add_class(context,"errorEntrada");
+    }
+    // Mensaje de error compartido
+    if (digits_only(valorTarea6_c) && digits_only(valorTarea6_p)){
+        gtk_widget_set_child_visible(g_msj_error_6, false); gtk_label_set_text(GTK_LABEL(g_msj_error_6), "Tiempo debe ser \n menor al período");
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_6, true); gtk_label_set_text(GTK_LABEL(g_msj_error_6), "Solo números");
+    }
+    
+    if(!esValido){ printf(" > Todas las entradas deben ser numéricas \n"); }
+
+    return esValido;
+}
+
 
 // Valida si al menos un checkbox de los algoritmos está marcado.
 int ValidarAlgoritmosSeleccionados(){ 
@@ -347,6 +485,7 @@ void IniciarEjecucion(){
 
     int esValido = ValidarCongruenciaTiemposConPeriodos();
     esValido = ValidarAlgoritmosSeleccionados() && esValido;
+    esValido = ValidarEntradasNumericas() && esValido;
     
     if (esValido){
         printf("\n\n--------------------\nParámetros recibidos: \n");

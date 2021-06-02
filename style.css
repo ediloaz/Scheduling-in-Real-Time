@@ -84,3 +84,12 @@
     color: red;
     margin-left: 10px;
 }
+
+.exitoEntrada{
+    border-color: #444;
+    color: #444;
+}
+.errorEntrada{
+    border-color: red;
+    color: red;
+}

@@ -149,6 +149,10 @@
                 <property name="halign">center</property>
                 <property name="placeholder_text" translatable="yes">c1</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
+                <style>
+                  <class name="exitoEntrada"/>
+                </style>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -187,6 +191,7 @@
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">c2</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -199,6 +204,7 @@
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">c3</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -211,6 +217,7 @@
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">c4</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">4</property>
@@ -223,6 +230,7 @@
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">c5</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">5</property>
@@ -235,6 +243,7 @@
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">c6</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">6</property>
@@ -247,6 +256,7 @@
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">p1</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -259,6 +269,7 @@
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">p2</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">2</property>
@@ -271,6 +282,7 @@
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">p3</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">3</property>
@@ -283,6 +295,7 @@
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">p4</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">4</property>
@@ -295,6 +308,7 @@
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">p5</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">5</property>
@@ -307,6 +321,7 @@
                 <property name="can_focus">True</property>
                 <property name="placeholder_text" translatable="yes">p6</property>
                 <property name="input_purpose">number</property>
+                <signal name="changed" handler="ValidarEntradasNumericas" swapped="no"/>
               </object>
               <packing>
                 <property name="left_attach">6</property>
