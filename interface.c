@@ -62,11 +62,70 @@ GtkWidget *g_check_algoritmo_3;
 GtkWidget *g_radio_slides_separados;
 GtkWidget *g_radio_slides_juntos;
 GtkWidget *g_btn_iniciar;
+GtkWidget *g_msj_error_1;
+GtkWidget *g_msj_error_2;
+GtkWidget *g_msj_error_3;
+GtkWidget *g_msj_error_4;
+GtkWidget *g_msj_error_5;
+GtkWidget *g_msj_error_6;
 
 void PrintInt(int value){
     char stringValue[100];
     sprintf(stringValue, "%d", value);
     printf("%s", stringValue);
+}
+
+
+int ValidarCongruenciaTiemposConPeriodos(){ 
+    
+    if (tiempos[0] >= periodos[0]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1 ){
+        gtk_widget_set_child_visible(g_msj_error_1, true);
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_1, false);
+    }
+
+    if (tiempos[1] >= periodos[1]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_2)==1 ){
+        gtk_widget_set_child_visible(g_msj_error_2, true);
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_2, false);
+    }
+
+    if (tiempos[2] >= periodos[2]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_3)==1 ){
+        gtk_widget_set_child_visible(g_msj_error_3, true);
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_3, false);
+    }
+    
+    if (tiempos[3] >= periodos[3]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_4)==1 ){
+        gtk_widget_set_child_visible(g_msj_error_4, true);
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_4, false);
+    }
+    
+    if (tiempos[4] >= periodos[4]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_5)==1 ){
+        gtk_widget_set_child_visible(g_msj_error_5, true);
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_5, false);
+    }
+    
+    if (tiempos[5] >= periodos[5]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_6)==1 ){
+        gtk_widget_set_child_visible(g_msj_error_6, true);
+    }else{
+        gtk_widget_set_child_visible(g_msj_error_6, false);
+    }
+    
+    if ( (tiempos[0] >= periodos[0] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1) || 
+         (tiempos[1] >= periodos[1] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_2)==1) || 
+         (tiempos[2] >= periodos[2] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_3)==1) || 
+         (tiempos[3] >= periodos[3] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_4)==1) || 
+         (tiempos[4] >= periodos[4] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_5)==1) || 
+         (tiempos[5] >= periodos[5] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_6)==1) 
+    ){
+        printf("Formato inválido, el tiempo debe ser menor al período. \n");
+        return 0;
+    }else{
+        return 1;
+    }
 }
 
 void IniciarEjecucion(){ 
@@ -83,34 +142,44 @@ void IniciarEjecucion(){
     periodos[3] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_4)));
     periodos[4] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_5)));
     periodos[5] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_6)));
-    
-    printf("\n\n--------------------\nParámetros recibidos: \n");
 
-    printf("Cantidad de tareas: %d \n", cantidadTareasSeleccionadas);
-    printf("Tiempos por cada tarea: \n");
-    for (int i=0; i<cantidadTareasSeleccionadas ; i++){
-        printf("\t Tarea %d: %d\n", i+1, tiempos[i]);
+    int esValido = ValidarCongruenciaTiemposConPeriodos();
+    
+    if (esValido){
+        printf("\n\n--------------------\nParámetros recibidos: \n");
+        printf("Cantidad de tareas: %d \n", cantidadTareasSeleccionadas);
+        printf("Tiempos por cada tarea: \n");
+        for (int i=0; i<cantidadTareasSeleccionadas ; i++){
+            printf("\t Tarea %d: %d\n", i+1, tiempos[i]);
+        }
+        printf("Períodos por cada tarea: \n");
+        for (int i=0; i<cantidadTareasSeleccionadas ; i++){
+            printf("\t Tarea %d: %d\n", i+1, periodos[i]);
+        }
+        printf("Algoritmos usados: \n");
+        printf("\t + 1. RM: Rate Monothonic: %s \n", algoritmosUsados[0]==1 ? "Sí" : "No");
+        printf("\t + 2. EDF: Earliest Deadline First: %s \n", algoritmosUsados[1]==1 ? "Sí" : "No");
+        printf("\t + 3. LLF: Least Laxity First: %s \n", algoritmosUsados[2]==1 ? "Sí" : "No");
+
+        printf("\n Algoritmos a mostrar %s \n", sonSlidesPorSepado==1 ? "en slides separados" : "juntos en un solo slide");
+        printf("\n-------------------- \n\n");
+
+        // VARIABLES PARA USAR EN LA INTEGRACIÓN: 
+        // cantidadTareasSeleccionadas          // Es el n
+        // tiempos                              // Es el c
+        // periodos                             // Es el p
+        // sonSlidesPorSepado                   // Su valor puede ser 1 o 0.
+        // algoritmosUsados[3] = {0,0,0}        // Ceros(0) si no se está usando, unos(1) si sí.
     }
-    printf("Períodos por cada tarea: \n");
-    for (int i=0; i<cantidadTareasSeleccionadas ; i++){
-        printf("\t Tarea %d: %d\n", i+1, periodos[i]);
-    }
-    printf("Algoritmos usados: \n");
-    printf("\t + 1. RM: Rate Monothonic: %s \n", algoritmosUsados[0]==1 ? "Sí" : "No");
-    printf("\t + 2. EDF: Earliest Deadline First: %s \n", algoritmosUsados[1]==1 ? "Sí" : "No");
-    printf("\t + 3. LLF: Least Laxity First: %s \n", algoritmosUsados[2]==1 ? "Sí" : "No");
+}
 
-    printf("\n Algoritmos a mostrar %s \n", sonSlidesPorSepado==1 ? "en slides separados" : "juntos en un solo slide");
-    
-    printf("\n-------------------- \n\n");
 
-    // VARIABLES PARA USAR EN LA INTEGRACIÓN: 
-    int n = cantidadTareasSeleccionadas;
-    int c[6] = tiempos;
-    int p[6] = periodos;
-    
-    // sonSlidesPorSepado                   // Su valor puede ser 1 o 0.
-    // algoritmosUsados[3] = {0,0,0}        // Ceros(0) si no se está usando, unos(1) si sí.
+// Revisa si algún evento está pendiente de actualizar y lo actualiza.
+// Éste se usa para actualizar cambios en el UI e invocar timeouts en interfaz.
+// Mientras o luego de hacer algún cambio de la interfaz (como el set_text).
+void RefrescarInterfaz(){
+    while (gtk_events_pending ())
+        gtk_main_iteration ();
 }
 
 void onClickRadioTareas(int numeroDeTareas)
@@ -207,13 +276,6 @@ void onClickCheckboxAlg2(){ algoritmosUsados[1] = algoritmosUsados[1]==0 ? 1 : 0
 void onClickCheckboxAlg3(){ algoritmosUsados[2] = algoritmosUsados[2]==0 ? 1 : 0; }
 
 
-// Revisa si algún evento está pendiente de actualizar y lo actualiza.
-// Éste se usa para actualizar cambios en el UI e invocar timeouts en interfaz.
-// Mientras o luego de hacer algún cambio de la interfaz (como el set_text).
-void RefrescarInterfaz(){
-    while (gtk_events_pending ())
-        gtk_main_iteration ();
-}
 
 // Creación de la interfaz
 void IniciarInterfaz(int argc, char *argv[])
@@ -256,12 +318,24 @@ void IniciarInterfaz(int argc, char *argv[])
     g_radio_slides_separados = GTK_WIDGET(gtk_builder_get_object(builder, "radio_slides_separados"));
     g_radio_slides_juntos = GTK_WIDGET(gtk_builder_get_object(builder, "radio_slides_juntos"));
     g_btn_iniciar = GTK_WIDGET(gtk_builder_get_object(builder, "btn_iniciar"));
-    
+    g_msj_error_1 = GTK_WIDGET(gtk_builder_get_object(builder, "msj_error_1"));
+    g_msj_error_2 = GTK_WIDGET(gtk_builder_get_object(builder, "msj_error_2"));
+    g_msj_error_3 = GTK_WIDGET(gtk_builder_get_object(builder, "msj_error_3"));
+    g_msj_error_4 = GTK_WIDGET(gtk_builder_get_object(builder, "msj_error_4"));
+    g_msj_error_5 = GTK_WIDGET(gtk_builder_get_object(builder, "msj_error_5"));
+    g_msj_error_6 = GTK_WIDGET(gtk_builder_get_object(builder, "msj_error_6"));
 
     
 
     // Funciones a llamar al iniciar la interfaz
     onClickRadioTareas1();
+    // Ocultar los mensajes de errores
+    gtk_widget_set_child_visible(g_msj_error_1, false);
+    gtk_widget_set_child_visible(g_msj_error_2, false);
+    gtk_widget_set_child_visible(g_msj_error_3, false);
+    gtk_widget_set_child_visible(g_msj_error_4, false);
+    gtk_widget_set_child_visible(g_msj_error_5, false);
+    gtk_widget_set_child_visible(g_msj_error_6, false);
     
 
     g_object_unref(builder);

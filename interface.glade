@@ -2,6 +2,7 @@
 <!-- Generated with glade 3.22.2 -->
 <interface>
   <requires lib="gtk+" version="3.20"/>
+  <!-- interface-css-provider-path style.css -->
   <object class="GtkEntryCompletion" id="entrycompletion1"/>
   <object class="GtkWindow" id="interface">
     <property name="can_focus">False</property>
@@ -311,6 +312,105 @@
                 <property name="left_attach">6</property>
                 <property name="top_attach">2</property>
               </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="msj_error_1">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Tiempo debe ser 
+menor al período</property>
+                <style>
+                  <class name="errorMessage"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="msj_error_2">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Tiempo debe ser 
+menor al período</property>
+                <style>
+                  <class name="errorMessage"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="msj_error_3">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Tiempo debe ser 
+menor al período</property>
+                <style>
+                  <class name="errorMessage"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">3</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="msj_error_4">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Tiempo debe ser 
+menor al período</property>
+                <style>
+                  <class name="errorMessage"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">4</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="msj_error_5">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Tiempo debe ser 
+menor al período</property>
+                <style>
+                  <class name="errorMessage"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">5</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="msj_error_6">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">Tiempo debe ser 
+menor al período</property>
+                <style>
+                  <class name="errorMessage"/>
+                </style>
+              </object>
+              <packing>
+                <property name="left_attach">6</property>
+                <property name="top_attach">3</property>
+              </packing>
+            </child>
+            <child>
+              <placeholder/>
             </child>
             <child>
               <placeholder/>

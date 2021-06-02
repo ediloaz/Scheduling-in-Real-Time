@@ -79,3 +79,8 @@
     color: #27ae60;
     padding: 4px;
 }
+
+.errorMessage{
+    color: red;
+    margin-left: 10px;
+}
