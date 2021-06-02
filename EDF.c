@@ -64,8 +64,19 @@ void insertionSort(int arr[], int indx[], int n,  int actual )
     }
 }
 
-//Earliest Deadline First
-void earliestDeadlineFirst(int n, int m, int c[], int p[], int result[n][m])
+//Retorna deadline
+int edf(int p, int j){
+    return p - j % p;
+}
+
+
+//Retorna laxity
+int llf(int p, int j, int c){
+    return (p - j % p) - j - c;
+}
+
+
+void schedulingAlgorithm(int n, int m, int c[], int p[], int result[n][m], int type)
 {
     //Initialize Configuration
     int progress[n];
@@ -103,67 +114,11 @@ void earliestDeadlineFirst(int n, int m, int c[], int p[], int result[n][m])
         }
         
         //Set priorities
-        for(int i=0; i< n; i++){ indx[i] = i; arr[i] = p[i] - j % p[i]; }
-        
-        insertionSort(arr, indx, n, actual);
-        
-        //Simulate Execution: cambiar orden para que sea el de EDF
-        for (int i = 0; i < n && stop == 0; i++)
-        {
-            if (progress[indx[i]] > 0)
-            {
-                result[indx[i]][j] = 1;
-                progress[indx[i]]--;
-                actual = progress[indx[i]] == 0 ? -1 : indx[i];
-                break;
-            }
-        }
-    }    
-    
-}
-
-//Least Laxity First
-void leastLaxityFirst(int n, int m, int c[], int p[], int result[n][m])
-{
-    //Initialize Configuration
-    int progress[n];
-    int indx[n];
-    int actual = -1;
-    int arr[n];    
-    for (int i = 0; i < n + 1; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            result[i][j] = 0;
-        }
-        progress[i] = 0;
-    }
-
-    //LLF
-    int stop = 0;
-    for (int j = 0; j < m && stop == 0; j++)
-    {
-        //Increase Progress and Check Error
-        for (int i = 0; i < n; i++)
-        {
-            if (j % p[i] == 0)
-            {
-                //Check ERROR
-                if (progress[i] > 0)
-                {
-                    result[n][j] = -1;
-                    stop = 1;
-                    break;
-                }
-                //Increase C in Progress
-                progress[i] += c[i];
-            }
-        }
-        
-        //Set priorities
         for(int i=0; i< n; i++){
-            indx[i] = i; 
-            arr[i] = (p[i] - j % p[i]) - j - c[i];
+            indx[i] = i;
+            if(type == 0) arr[i] = p[i];
+            else if(type==1) arr[i] = edf(p[i], j);
+            else if(type == 2) arr[i] = llf(p[i], j, c[i]); 
         }
         
         insertionSort(arr, indx, n, actual);
@@ -187,8 +142,8 @@ int main()
 {
     int n = 3;
 
-    int c[] = {2,2,3};
-    int p[] = {6,8,10};
+    int c[] = {6,2,1};
+    int p[] = {18,9,6};
 
     
     //Calculate MCM
@@ -200,7 +155,7 @@ int main()
 
     //Calculate Rate Monotonic
     int result[n + 1][m];
-    leastLaxityFirst(n, m, c, p, result);
+    schedulingAlgorithm(n, m, c, p, result, 0);
 
     //Print Result
     for (int i = 0; i < n + 1; i++)
