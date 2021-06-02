@@ -32,10 +32,20 @@ double U(int n, int c[], int p[])
     return result;
 }
 
-//Parte Derecha de Schedulable
-double schedulable(double n)
+double Bini(int n, int c[], int p[])
 {
-    return 1;
+    double result = 1;
+    for (int i = 0; i < n; i++)
+    {
+        result *= (double)c[i] / (double)p[i] + 1;
+    }
+    return result;
+}
+
+//Parte Derecha de Schedulable
+double U(double n)
+{
+    return n * (pow(2, 1 / n) - 1);
 }
 
 void insertionSort(int arr[], int indx[], int n,  int actual )
@@ -147,10 +157,10 @@ int main()
 
     
     //Calculate MCM
-    int m = 0;
-    for (int i = 0; i < n - 1; i++)
+    int m = 1;
+    for (int i = 0; i < n; i++)
     {
-        m = MCM(p[i], p[i + 1]);
+        m = MCM(p[i], m);
     }
 
     //Calculate Rate Monotonic
