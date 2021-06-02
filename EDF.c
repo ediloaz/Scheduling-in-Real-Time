@@ -122,12 +122,73 @@ void earliestDeadlineFirst(int n, int m, int c[], int p[], int result[n][m])
     
 }
 
+//Least Laxity First
+void leastLaxityFirst(int n, int m, int c[], int p[], int result[n][m])
+{
+    //Initialize Configuration
+    int progress[n];
+    int indx[n];
+    int actual = -1;
+    int arr[n];    
+    for (int i = 0; i < n + 1; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            result[i][j] = 0;
+        }
+        progress[i] = 0;
+    }
+
+    //LLF
+    int stop = 0;
+    for (int j = 0; j < m && stop == 0; j++)
+    {
+        //Increase Progress and Check Error
+        for (int i = 0; i < n; i++)
+        {
+            if (j % p[i] == 0)
+            {
+                //Check ERROR
+                if (progress[i] > 0)
+                {
+                    result[n][j] = -1;
+                    stop = 1;
+                    break;
+                }
+                //Increase C in Progress
+                progress[i] += c[i];
+            }
+        }
+        
+        //Set priorities
+        for(int i=0; i< n; i++){
+            indx[i] = i; 
+            arr[i] = (p[i] - j % p[i]) - j - c[i];
+        }
+        
+        insertionSort(arr, indx, n, actual);
+        
+        //Simulate Execution: cambiar orden para que sea el de EDF
+        for (int i = 0; i < n && stop == 0; i++)
+        {
+            if (progress[indx[i]] > 0)
+            {
+                result[indx[i]][j] = 1;
+                progress[indx[i]]--;
+                actual = progress[indx[i]] == 0 ? -1 : indx[i];
+                break;
+            }
+        }
+    }    
+    
+}
+
 int main()
 {
-    int n = 2;
+    int n = 3;
 
-    int c[] = {3,4};
-    int p[] = {6,9};
+    int c[] = {2,2,3};
+    int p[] = {6,8,10};
 
     
     //Calculate MCM
@@ -139,7 +200,7 @@ int main()
 
     //Calculate Rate Monotonic
     int result[n + 1][m];
-    earliestDeadlineFirst(n, m, c, p, result);
+    leastLaxityFirst(n, m, c, p, result);
 
     //Print Result
     for (int i = 0; i < n + 1; i++)
