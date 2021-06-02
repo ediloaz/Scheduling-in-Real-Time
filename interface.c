@@ -13,7 +13,7 @@ TODO:
 DONE:
     + Validaciones:
         1. Tiempo de ejecución más peque que el período
-        
+
     + Variables para guardado de las entradas.
         1. INT: [n] Cantidad de tareas 
         2. Array de INT: [tiempos] de c (tiempos)
@@ -77,7 +77,20 @@ void PrintInt(int value){
     printf("%s", stringValue);
 }
 
+// Valida si al menos un checkbox de los algoritmos está marcado.
+int ValidarAlgoritmosSeleccionados(){ 
+    if (algoritmosUsados[0]==0 && 
+        algoritmosUsados[1]==0 && 
+        algoritmosUsados[2]==0 
+    ){
+        printf(" > Debe tener al menos un algoritmo seleccionado. \n");
+        return false;
+    }else{
+        return true;
+    }
+}
 
+// Valida por cada tarea si el tiempo es menor al período
 int ValidarCongruenciaTiemposConPeriodos(){ 
     
     if (tiempos[0] >= periodos[0]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1 ){
@@ -123,7 +136,7 @@ int ValidarCongruenciaTiemposConPeriodos(){
          (tiempos[4] >= periodos[4] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_5)==1) || 
          (tiempos[5] >= periodos[5] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_6)==1) 
     ){
-        printf("Formato inválido, el tiempo debe ser menor al período. \n");
+        printf(" > Formato inválido, el tiempo debe ser menor al período. \n");
         return 0;
     }else{
         return 1;
@@ -146,6 +159,7 @@ void IniciarEjecucion(){
     periodos[5] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_periodo_6)));
 
     int esValido = ValidarCongruenciaTiemposConPeriodos();
+    esValido = ValidarAlgoritmosSeleccionados() && esValido;
     
     if (esValido){
         printf("\n\n--------------------\nParámetros recibidos: \n");
