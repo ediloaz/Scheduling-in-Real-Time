@@ -86,8 +86,7 @@ int MCM(int x, int y)
     return (x * y) / MCD(x, y);
 }
 
-//Parte Izquierda de Schedulable
-double U(int n, int c[], int p[])
+double Mu(int n, int c[], int p[])
 {
     double result = 0;
     for (int i = 0; i < n; i++)
@@ -97,10 +96,20 @@ double U(int n, int c[], int p[])
     return result;
 }
 
-//Parte Derecha de Schedulable
-double schedulable(double n)
+double Bini(int n, int c[], int p[])
 {
-    return 1;
+    double result = 1;
+    for (int i = 0; i < n; i++)
+    {
+        result *= (double)c[i] / (double)p[i] + 1;
+    }
+    return result;
+}
+
+//Parte Derecha de Schedulable
+double U(double n)
+{
+    return n * (pow(2, 1 / n) - 1);
 }
 
 void insertionSort(int arr[], int indx[], int n,  int actual )
