@@ -5,7 +5,7 @@
 #include <stdbool.h>
 
 /*
-ANTES DE USAR, 
+ANTES DE USAR,
 SE NECESITAN LAS SIGUIENTES LIBRERÍAS EN LINUX:
 
 + pdflatex
@@ -14,8 +14,8 @@ SE NECESITAN LAS SIGUIENTES LIBRERÍAS EN LINUX:
   Tutorial para instalar: https://gist.github.com/rain1024/98dd5e2c6c8c28f9ea9d (todos los paquetes extras pueden llegar a ser necesarios, mejor instalarlos).
 */
 
-// Command to compile: 
-// gcc -o latex latex.c 
+// Command to compile:
+// gcc -o latex latex.c
 
 // #ifndef _LATEX_H_
 // #define _LATEX_H_
@@ -30,7 +30,7 @@ FILE * tex_file;
 
 
 // Funciones reutilizables
-// 
+//
 #define PRINT(x) (printf("%s", x))
 
 void Latex_Write(char * text){
@@ -70,7 +70,7 @@ void Latex_WriteHeader(){
     Latex_Write("\\usepackage[utf8]{inputenc} \n");
     Latex_Write("\\usepackage{lmodern} \n");
     Latex_Write("\\usepackage[T1]{fontenc} \n");
-    Latex_Write("\\usepackage[spanish]{babel} \n");
+  //  Latex_Write("\\usepackage[spanish]{babel} \n");
     Latex_Write("\\usepackage{tikz} \n");
     Latex_Write("\\usepackage{natbib} \n");
     Latex_Write("\\usepackage{hyperref} \n");
@@ -142,8 +142,7 @@ void Latex_WriteSection2(){
     Latex_Write("% - - - - - - - - - ;\n");
     Latex_Write("% - - - - 2 - - - - ;\n");
     Latex_Write("% Breve introducción del proyecto \n");
-    Latex_Write("\\section{Scheduling en Tiempo Real}\n");
-    Latex_Write("\\begin{frame}\n");
+    Latex_Write("\\begin{frame}{Scheduling en Tiempo Real}\n");
     Latex_Write("Simulación del comportamiento de varios algoritmos de scheduling clásicos para Sistemas Operativos de Tiempo Real (RTOS). Con una interaz gráfica hecha con GTK y generación de una presentación Beamer como salida.\n");
     Latex_Write("\\end{frame}\n");
     Latex_Write("\n");
@@ -163,7 +162,107 @@ void IniciarLatex(){
     Latex_WriteDocument();
 }
 
+void Escribir_Tabla( int n, int m, int result[n][m], int type){
+  if (type == 0) {
+    Latex_Write("\\begin{frame}{Ejecución RM} \n");
+  }
+  else if (type == 1) {
+    Latex_Write("\\begin{frame}{Ejecución EDF} \n");
+  }
+  else if (type == 2) {
+    Latex_Write("\\begin{frame}{Ejecución LLF} \n");
+  }
+  else{
+    Latex_Write("\\begin{frame} \n");
+  }
 
+  const char *color[6]= {"\\cellcolor[HTML]{34FF34}","\\cellcolor[HTML]{FE0000}",
+                          "\\cellcolor[HTML]{3531FF}","\\cellcolor[HTML]{FF8202}",
+                          "\\cellcolor[HTML]{D122B9}","\\cellcolor[HTML]{680100}"};
+
+  Latex_Write("\\begin{center} \n");
+  Latex_Write("\\begin{tabular}{");
+  for (size_t i = 0; i < m; i++) {
+    Latex_Write("c");
+  }
+    Latex_Write("} \n");
+
+  Latex_Write("\\hline \n");
+printf("n: %d  m: %d\n",n,m );
+for (int i = 0; i < n + 1; i++)
+{
+    for (int j = 0; j < m; j++)
+    {
+
+        printf("%d ", result[i][j]);
+        Latex_Write("\\multicolumn{1}{|l|}{");
+
+        if (1 == result[i][j]) {
+          Latex_Write(color[i]);
+        }
+        if (j != m-1) {
+          Latex_Write("} &");
+        }
+        if (j == m - 1)
+        {
+          Latex_Write("} ");
+          Latex_Write("\\\\ \\hline \n");
+
+            printf("\n");
+        }
+    }
+}
+
+Latex_Write("\\end{tabular}% \n");
+Latex_Write("\\end{center} \n");
+Latex_Write("\\end{frame}\n");
+
+
+}
+
+
+void Escribir_AlgoritmoRM(){
+
+Latex_Write("\\begin{frame}{Algoritmo: Rate Monotonic} \n");
+Latex_Write("\\begin{itemize} \n");
+Latex_Write("   \\item Propuesto por Liu y Layland (1973) \n");
+Latex_Write("   \\item Scheduling dinámico de tiempo  \n");
+Latex_Write("   \\item Es óptimo. \n");
+Latex_Write("   \\item Expropiativo, de mayor prioridad primero \n");
+Latex_Write("   \\item La prioridad de una tarea es inversamente proporcional a su periodo \n");
+Latex_Write("\\end{itemize} \n");
+Latex_Write("\\end{frame} \n");
+}
+
+
+void Escribir_AlgoritmoEDF() {
+Latex_Write("\\begin{frame}{Algoritmo: Earliest Deadline First} \n");
+Latex_Write("\\begin{itemize} \n");
+Latex_Write("   \\item Propuesto por Liu y Layland (1973) \n");
+Latex_Write("   \\item Scheduling dinámico de tiempo real \n");
+Latex_Write("   \\item Es óptimo. \n");
+Latex_Write("   \\item Expropiativo, de mayor prioridad primero \n");
+Latex_Write("   \\item La prioridad de una tarea es inversamente proporcional al tiempo pendiente para que se dé su deadline \n");
+Latex_Write("\\end{itemize} \n");
+Latex_Write("\\end{frame} \n");
+}
+
+void Escribir_AlgoritmoLLF(){
+Latex_Write("\\begin{frame}{Algoritmo: Least Laxity First} \n");
+Latex_Write("\\begin{itemize} \n");
+Latex_Write("   \\item Propuesto por Leung (1989) \n");
+Latex_Write("   \\item Scheduling dinámico de tiempo real \n");
+Latex_Write("   \\item Es óptimo. \n");
+Latex_Write("   \\item Expropiativo, de mayor prioridad primero \n");
+Latex_Write("   \\item La prioridad de una tarea es inversamente proporcional a su laxity. El laxity de la tarea i, d es el deadline, c es el tiempo de computación y t es el momento en el tiempo, se calcula: \\( L_{i} = d_{i} - t_{i} - c_{i}\\)  \n");
+Latex_Write("\\end{itemize} \n");
+Latex_Write("\\end{frame} \n");
+}
+
+
+void Escribir_Test(/* arguments */) {
+  /* code */
+}
 
 
 void Latex_ComandosFinales(){
@@ -205,14 +304,16 @@ void TerminarLatex(){
     MoveFiles();
 }
 
-
+/*
 int main(int argc, char** argv) {
     PRINT("Inicio \n\n");
 
     IniciarLatex();
+
     TerminarLatex();
-    
+
     printf("\n\nFinal \n\n");
 
     return (EXIT_SUCCESS);
 }
+*/

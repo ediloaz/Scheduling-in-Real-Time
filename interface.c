@@ -1,11 +1,12 @@
 #include <gtk/gtk.h>
-#include <stdbool.h>  
+#include <stdbool.h>
 #include <glib/gtypes.h>
 #include <stdio.h>
 #include <math.h>
 #include <ctype.h>
-
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*
 
@@ -17,7 +18,7 @@ gcc -o interface interface.c -lm -Wall `pkg-config --cflags --libs gtk+-3.0` -ex
 
 // Variables globales
 int cantidadTareasSeleccionadas = 1;
-int sonSlidesPorSepado = 1; 
+int sonSlidesPorSepado = 1;
 int algoritmosUsados[3] = {0,0,0};
 int tiempos[6] = {0,0,0,0,0,0};
 int periodos[6] = {0,0,0,0,0,0};
@@ -107,19 +108,19 @@ void insertionSort(int arr[], int indx[], int n,  int actual )
 {
     /* - arr es el arreglo con los datos que se usan como criterio para el ordenamiento
        - indx es un arreglo de enteros consecutivos de tamaño n (ej: {0,1,2})
-       - actual es el proceso en ejecución. Se usa para desempates 
+       - actual es el proceso en ejecución. Se usa para desempates
     	    (actual tiene prioridad) (si actual = -1, no se toma en cuenta)
     */
-    
-    //Orden arr y, al mismo tiempo, indx    
+
+    //Orden arr y, al mismo tiempo, indx
     int i, key, j, keyIndx;
     for(i = 1; i< n; i++){
     	key = arr[i];
     	keyIndx = indx[i];
     	j = i - 1;
-    	
+
     	while(j >= 0 && (arr[j] > key || (arr[j] == key && i == actual))){
-    	    
+
     	    arr[j + 1] = arr[j];
     	    indx[j + 1] = indx[j];
     	    j = j - 1;
@@ -147,7 +148,7 @@ void schedulingAlgorithm(int n, int m, int c[], int p[], int result[n][m], int t
     int progress[n];
     int indx[n];
     int actual = -1;
-    int arr[n];    
+    int arr[n];
     for (int i = 0; i < n + 1; i++)
     {
         for (int j = 0; j < m; j++)
@@ -177,17 +178,17 @@ void schedulingAlgorithm(int n, int m, int c[], int p[], int result[n][m], int t
                 progress[i] += c[i];
             }
         }
-        
+
         //Set priorities
         for(int i=0; i< n; i++){
             indx[i] = i;
             if(type == 0) arr[i] = p[i];
             else if(type==1) arr[i] = edf(p[i], j);
-            else if(type == 2) arr[i] = llf(p[i], j, c[i]); 
+            else if(type == 2) arr[i] = llf(p[i], j, c[i]);
         }
-        
+
         insertionSort(arr, indx, n, actual);
-        
+
         //Simulate Execution: cambiar orden para que sea el de EDF
         for (int i = 0; i < n && stop == 0; i++)
         {
@@ -199,11 +200,11 @@ void schedulingAlgorithm(int n, int m, int c[], int p[], int result[n][m], int t
                 break;
             }
         }
-    }    
-    
+    }
+
 }
 
-int ALGORITMO_GENERAL()
+int ALGORITMO_GENERAL_SEPARADO()
 {
     int n = cantidadTareasSeleccionadas;
 
@@ -214,13 +215,68 @@ int ALGORITMO_GENERAL()
         m = MCM(periodos[i], m);
     }
 
+    m = (((m) < (24)) ? (m) : (24));
+
+
     //Calculate Rate Monotonic
     int result[n + 1][m];
     for (int i = 0; i<3 ; i++ ){
         if (algoritmosUsados[i]){
             schedulingAlgorithm(cantidadTareasSeleccionadas, m, tiempos, periodos, result, i);
-            
+
             // Print TEMPORAL del Resultado
+            printf("Inicio \n\n");
+
+
+            Escribir_Tabla(n,m,result,i);
+
+            printf("\n\nFinal \n\n");
+            for (int i = 0; i < n - 1; i++)
+            {
+                for (int j = 0; j < m; j++)
+                {
+                    printf("%d ", result[i][j]);
+                    if (j == m - 1)
+                    {
+                        printf("\n");
+                    }
+                }
+            }
+            printf("\n\n");
+        }
+    }
+
+
+
+    return 0;
+}
+
+
+int ALGORITMO_GENERAL_JUNTO()
+{
+    int n = cantidadTareasSeleccionadas;
+
+    //Calculate MCM
+    int m = 1;
+    for (int i = 0; i < n; i++)
+    {
+        m = MCM(periodos[i], m);
+    }
+
+
+    //Calculate Rate Monotonic
+    int result[n + 1][m];
+    for (int i = 0; i<3 ; i++ ){
+        if (algoritmosUsados[i]){
+            schedulingAlgorithm(cantidadTareasSeleccionadas, m, tiempos, periodos, result, i);
+
+            // Print TEMPORAL del Resultado
+            printf("Inicio \n\n");
+
+
+            Escribir_Tabla(n+1,m,result);
+
+            printf("\n\nFinal \n\n");
             for (int i = 0; i < n + 1; i++)
             {
                 for (int j = 0; j < m; j++)
@@ -236,11 +292,10 @@ int ALGORITMO_GENERAL()
         }
     }
 
+
+
     return 0;
 }
-
-
-
 
 
 
@@ -260,10 +315,10 @@ int digits_only(const char *s){
     return 1;
 }
 
-int ValidarEntradasNumericas(){ 
+int ValidarEntradasNumericas(){
     GtkStyleContext *context;
-    int esValido = 1; 
-    
+    int esValido = 1;
+
     const gchar * valorTarea1_c = gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_1));
     context = gtk_widget_get_style_context(g_entry_tarea_tiempo_1);
     if (digits_only(valorTarea1_c)){
@@ -395,7 +450,7 @@ int ValidarEntradasNumericas(){
     }else{
         gtk_widget_set_child_visible(g_msj_error_6, true); gtk_label_set_text(GTK_LABEL(g_msj_error_6), "Solo números");
     }
-    
+
     if(!esValido){ printf(" > Todas las entradas deben ser numéricas \n"); }
 
     return esValido;
@@ -403,10 +458,10 @@ int ValidarEntradasNumericas(){
 
 
 // Valida si al menos un checkbox de los algoritmos está marcado.
-int ValidarAlgoritmosSeleccionados(){ 
-    if (algoritmosUsados[0]==0 && 
-        algoritmosUsados[1]==0 && 
-        algoritmosUsados[2]==0 
+int ValidarAlgoritmosSeleccionados(){
+    if (algoritmosUsados[0]==0 &&
+        algoritmosUsados[1]==0 &&
+        algoritmosUsados[2]==0
     ){
         printf(" > Debe tener al menos un algoritmo seleccionado. \n");
         return false;
@@ -416,8 +471,8 @@ int ValidarAlgoritmosSeleccionados(){
 }
 
 // Valida por cada tarea si el tiempo es menor al período
-int ValidarCongruenciaTiemposConPeriodos(){ 
-    
+int ValidarCongruenciaTiemposConPeriodos(){
+
     if (tiempos[0] >= periodos[0]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1 ){
         gtk_widget_set_child_visible(g_msj_error_1, true);
     }else{
@@ -435,31 +490,31 @@ int ValidarCongruenciaTiemposConPeriodos(){
     }else{
         gtk_widget_set_child_visible(g_msj_error_3, false);
     }
-    
+
     if (tiempos[3] >= periodos[3]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_4)==1 ){
         gtk_widget_set_child_visible(g_msj_error_4, true);
     }else{
         gtk_widget_set_child_visible(g_msj_error_4, false);
     }
-    
+
     if (tiempos[4] >= periodos[4]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_5)==1 ){
         gtk_widget_set_child_visible(g_msj_error_5, true);
     }else{
         gtk_widget_set_child_visible(g_msj_error_5, false);
     }
-    
+
     if (tiempos[5] >= periodos[5]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_6)==1 ){
         gtk_widget_set_child_visible(g_msj_error_6, true);
     }else{
         gtk_widget_set_child_visible(g_msj_error_6, false);
     }
-    
-    if ( (tiempos[0] >= periodos[0] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1) || 
-         (tiempos[1] >= periodos[1] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_2)==1) || 
-         (tiempos[2] >= periodos[2] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_3)==1) || 
-         (tiempos[3] >= periodos[3] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_4)==1) || 
-         (tiempos[4] >= periodos[4] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_5)==1) || 
-         (tiempos[5] >= periodos[5] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_6)==1) 
+
+    if ( (tiempos[0] >= periodos[0] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1) ||
+         (tiempos[1] >= periodos[1] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_2)==1) ||
+         (tiempos[2] >= periodos[2] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_3)==1) ||
+         (tiempos[3] >= periodos[3] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_4)==1) ||
+         (tiempos[4] >= periodos[4] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_5)==1) ||
+         (tiempos[5] >= periodos[5] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_6)==1)
     ){
         printf(" > Formato inválido, el tiempo debe ser menor al período. \n");
         return 0;
@@ -468,7 +523,7 @@ int ValidarCongruenciaTiemposConPeriodos(){
     }
 }
 
-void IniciarEjecucion(){ 
+void IniciarEjecucion(){
     // Definición de los parámetros en variables
     tiempos[0] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_1)));
     tiempos[1] = atoi(gtk_entry_get_text(GTK_ENTRY(g_entry_tarea_tiempo_2)));
@@ -486,7 +541,7 @@ void IniciarEjecucion(){
     int esValido = ValidarCongruenciaTiemposConPeriodos();
     esValido = ValidarAlgoritmosSeleccionados() && esValido;
     esValido = ValidarEntradasNumericas() && esValido;
-    
+
     if (esValido){
         printf("\n\n--------------------\nParámetros recibidos: \n");
         printf("Cantidad de tareas: %d \n", cantidadTareasSeleccionadas);
@@ -506,9 +561,30 @@ void IniciarEjecucion(){
         printf("\n Algoritmos a mostrar %s \n", sonSlidesPorSepado==1 ? "en slides separados" : "juntos en un solo slide");
         printf("\n-------------------- \n\n");
 
-        ALGORITMO_GENERAL();
 
-        // VARIABLES PARA USAR EN LA INTEGRACIÓN: 
+        IniciarLatex();
+
+        if (algoritmosUsados[0]) {
+          Escribir_AlgoritmoRM();
+        }
+        if (algoritmosUsados[1]) {
+          Escribir_AlgoritmoEDF();
+        }
+        if (algoritmosUsados[2]) {
+          Escribir_AlgoritmoLLF();
+        }
+        if (sonSlidesPorSepado) {
+          ALGORITMO_GENERAL_SEPARADO();
+        }
+        else{
+          ALGORITMO_GENERAL_JUNTO();
+        }
+
+        TerminarLatex();
+
+
+
+        // VARIABLES PARA USAR EN LA INTEGRACIÓN:
         // cantidadTareasSeleccionadas          // Es el n
         // tiempos                              // Es el c
         // periodos                             // Es el p
@@ -669,7 +745,7 @@ void IniciarInterfaz(int argc, char *argv[])
     g_msj_error_5 = GTK_WIDGET(gtk_builder_get_object(builder, "msj_error_5"));
     g_msj_error_6 = GTK_WIDGET(gtk_builder_get_object(builder, "msj_error_6"));
 
-    
+
 
     // Funciones a llamar al iniciar la interfaz
     onClickRadioTareas1();
@@ -680,7 +756,7 @@ void IniciarInterfaz(int argc, char *argv[])
     gtk_widget_set_child_visible(g_msj_error_4, false);
     gtk_widget_set_child_visible(g_msj_error_5, false);
     gtk_widget_set_child_visible(g_msj_error_6, false);
-    
+
 
     g_object_unref(builder);
     gtk_widget_show(window);
