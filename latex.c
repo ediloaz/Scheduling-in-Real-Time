@@ -89,6 +89,7 @@ void Latex_WriteHeader(){
     Latex_Write("\\definecolor{C3}{HTML}{FF8202} \n");
     Latex_Write("\\definecolor{C4}{HTML}{D122B9} \n");
     Latex_Write("\\definecolor{C5}{HTML}{680100} \n");
+    Latex_Write("\\definecolor{C6}{HTML}{FAFAFA} \n");
     Latex_Write("% Commands \n");
     Latex_Write("\\newcommand\\tab[1][1cm]{\\hspace*{#1}}  \n");
     Latex_Write("\\newcommand\\minitab[1][0.5cm]{\\hspace*{#1}}  \n");
@@ -179,7 +180,7 @@ void Escribir_Tabla( int n, int m, int result[n][m], int type, int periodos[]){
     Latex_Write("\\begin{frame}{Ejecución LLF} \n");
   }
   else{
-    Latex_Write("\\begin{frame} \n");
+    Latex_Write("\\begin{frame}{} \n");
   }
 
   const char *color[7]= {"\\cellcolor[HTML]{34FF34}","\\cellcolor[HTML]{FE0000}",
@@ -213,6 +214,9 @@ for (int i = 0; i < m; i++) {
     snprintf(c_t, 2, "%d", j);
     Latex_Write(c_t);
     Latex_Write("}{\\swarrow}$  \\\\");
+    }
+    else {
+    Latex_Write(" $\\color{C6}{\\swarrow}$  \\\\");
     }
   }
   Latex_Write("}} ");
@@ -263,6 +267,122 @@ Latex_Write("\\end{center} \n");
 Latex_Write("\\end{frame}\n");
 
 
+}
+
+void Abrir_Frame() {
+  Latex_Write("\\begin{frame}{Ejecución de Algoritmos RM - EDF - LLF} \n");
+
+}
+
+void Escribir_Tablas( int n, int m, int result[n][m], int type, int periodos[],int orden){
+
+  const char *color[7]= {"\\cellcolor[HTML]{34FF34}","\\cellcolor[HTML]{FE0000}",
+                          "\\cellcolor[HTML]{3531FF}","\\cellcolor[HTML]{FF8202}",
+                          "\\cellcolor[HTML]{D122B9}","\\cellcolor[HTML]{680100}",
+                          "\\cellcolor[HTML]{000000}"};
+
+  Latex_Write("\\begin{center} \n");
+  Latex_Write("\\renewcommand{\\arraystretch}{0.2}");
+  Latex_Write("\\begin{tabular}{");
+  for (size_t i = 0; i < m; i++) {
+    Latex_Write("c");
+  }
+    Latex_Write("} \n");
+
+char c_t[2];
+
+if(orden == 0){
+for (int i = 0; i < m; i++) {
+    if (i != 0) {
+      Latex_Write("&");
+   }
+   Latex_Write("\\multicolumn{1}{l}{\\begin{tiny}");
+    Latex_Write("\\shortstack{");
+  for(int j = 0; j < n; j++){
+
+    if (i % periodos[j] == 0) {
+    Latex_Write(" $\\color{C");
+    snprintf(c_t, 2, "%d", j);
+    Latex_Write(c_t);
+    Latex_Write("}{\\swarrow}$  \\\\");
+    }
+    else {
+    Latex_Write(" $\\color{C6}{\\swarrow}$  \\\\");
+    }
+  }
+  Latex_Write("}\\end{tiny}} ");
+}
+Latex_Write("\\\\");
+}
+else{
+  for (int i = 0; i < m; i++) {
+      if (i != 0) {
+        Latex_Write("&");
+     }
+      Latex_Write("\\multicolumn{1}{l}{\\begin{tiny}");
+      Latex_Write("\\shortstack{");
+      Latex_Write(" $\\color{C6}{\\swarrow}$  \\\\");
+      Latex_Write("}\\end{tiny}} ");
+  }
+  Latex_Write("\\\\");
+
+}
+
+Latex_Write("\\hline \n");
+printf("n: %d  m: %d\n",n,m );
+
+int deadline_p = -1;
+
+for (int i = 0; i < m; i++) {
+    if(result[n][i]== -1){
+      deadline_p = i;
+  }
+}
+for (int i = 0; i < n; i++)
+{
+    for (int j = 0; j < m; j++)
+    {
+
+        printf("%d ", result[i][j]);
+        Latex_Write("\\multicolumn{1}{|l|}{");
+
+        if (deadline_p == j) {
+            Latex_Write(color[6]);
+        }
+
+        if (1 == result[i][j]) {
+          Latex_Write(color[i]);
+        }
+        if (j != m-1) {
+          Latex_Write("} &");
+        }
+        if (j == m - 1)
+        {
+          Latex_Write("} ");
+          Latex_Write("\\\\ \\hline \n");
+
+            printf("\n");
+        }
+    }
+}
+
+Latex_Write("\\end{tabular}\\\\ \n");
+if (orden == 0) {
+  Latex_Write("\\caption{RM} \n");
+}
+else if (orden == 1) {
+  Latex_Write("\\caption{EDF} \n");
+}
+else{
+  Latex_Write("\\caption{LLF} \n");
+
+}
+Latex_Write("\\end{center} \n");
+
+}
+
+void Cerrar_Frame() {
+  Latex_Write("\\end{frame}\n");
 }
 
 

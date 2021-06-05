@@ -224,7 +224,7 @@ int ALGORITMO_GENERAL_SEPARADO()
         m = MCM(periodos[i], m);
     }
 
-    m = (((m) < (24)) ? (m) : (24));
+    m = (((m) < (14)) ? (m) : (14));
     double mu = Mu(n,tiempos,periodos);
     double bini = Bini(n,tiempos,periodos);
     double un = U(n);
@@ -241,7 +241,7 @@ int ALGORITMO_GENERAL_SEPARADO()
 
 
 
-            
+
             Escribir_Tabla(n,m,result,i,periodos);
 
             printf("\n\nFinal \n\n");
@@ -276,10 +276,15 @@ int ALGORITMO_GENERAL_JUNTO()
     {
         m = MCM(periodos[i], m);
     }
-
+    m = (((m) < (14)) ? (m) : (14));
+    double mu = Mu(n,tiempos,periodos);
+    double bini = Bini(n,tiempos,periodos);
+    double un = U(n);
+    Escribir_Test(mu,bini,un);
 
     //Calculate Rate Monotonic
     int result[n + 1][m];
+    Abrir_Frame();
     for (int i = 0; i<3 ; i++ ){
         if (algoritmosUsados[i]){
             schedulingAlgorithm(cantidadTareasSeleccionadas, m, tiempos, periodos, result, i);
@@ -288,7 +293,8 @@ int ALGORITMO_GENERAL_JUNTO()
             printf("Inicio \n\n");
 
 
-            Escribir_Tabla(n+1,m,result,i,periodos);
+            Escribir_Tablas(n,m,result,3,periodos,i);
+
 
             printf("\n\nFinal \n\n");
             for (int i = 0; i < n + 1; i++)
@@ -305,6 +311,7 @@ int ALGORITMO_GENERAL_JUNTO()
             printf("\n\n");
         }
     }
+    Cerrar_Frame();
 
 
 
