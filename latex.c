@@ -20,8 +20,8 @@ SE NECESITAN LAS SIGUIENTES LIBRERÍAS EN LINUX:
 // #ifndef _LATEX_H_
 // #define _LATEX_H_
 
-#define NAME_OF_TEX_FILE "LATEX.tex"
-#define NAME_OF_PDF_FILE "LATEX.pdf"
+#define NAME_OF_TEX_FILE "./data/LATEX.tex"
+#define NAME_OF_PDF_FILE "./data/LATEX.pdf"
 #define RED  "\x1B[31m"
 #define GRN  "\x1B[32m"
 #define BCK  "\x1B[0m"
@@ -272,15 +272,11 @@ void Latex_ComandosFinales(){
 }
 
 void GeneratePDF(){
-    char command[] = "pdflatex ";
-    strcat(command, NAME_OF_TEX_FILE);
-    system(command);
+    system("pdflatex --interaction=nonstopmode --output-directory=data ./data/LATEX.tex");
 }
 
 void OpenPDF(){
-    char command[] = "xdg-open ";
-    strcat(command, NAME_OF_PDF_FILE);
-    system(command);
+    system("xdg-open ./data/LATEX.pdf");
 }
 
 void MoveFiles(){
@@ -299,9 +295,6 @@ void TerminarLatex(){
     Latex_FinalizarVariable();
     GeneratePDF();
     OpenPDF();
-    printf("\nPress Enter to close the program.");
-    getchar();
-    MoveFiles();
 }
 
 /*
