@@ -225,8 +225,11 @@ int ALGORITMO_GENERAL_SEPARADO()
     }
 
     m = (((m) < (24)) ? (m) : (24));
-
-
+    double mu = Mu(n,tiempos,periodos);
+    double bini = Bini(n,tiempos,periodos);
+    double un = U(n);
+    Escribir_Test(mu,bini,un);
+    
     //Calculate Rate Monotonic
     int result[n + 1][m];
     for (int i = 0; i<3 ; i++ ){
@@ -235,6 +238,9 @@ int ALGORITMO_GENERAL_SEPARADO()
 
             // Print TEMPORAL del Resultado
             printf("Inicio \n\n");
+
+
+
 
 
             Escribir_Tabla(n,m,result,i);

@@ -176,9 +176,10 @@ void Escribir_Tabla( int n, int m, int result[n][m], int type){
     Latex_Write("\\begin{frame} \n");
   }
 
-  const char *color[6]= {"\\cellcolor[HTML]{34FF34}","\\cellcolor[HTML]{FE0000}",
+  const char *color[7]= {"\\cellcolor[HTML]{34FF34}","\\cellcolor[HTML]{FE0000}",
                           "\\cellcolor[HTML]{3531FF}","\\cellcolor[HTML]{FF8202}",
-                          "\\cellcolor[HTML]{D122B9}","\\cellcolor[HTML]{680100}"};
+                          "\\cellcolor[HTML]{D122B9}","\\cellcolor[HTML]{680100}",
+                          "\\cellcolor[HTML]{000000}"};
 
   Latex_Write("\\begin{center} \n");
   Latex_Write("\\begin{tabular}{");
@@ -189,13 +190,25 @@ void Escribir_Tabla( int n, int m, int result[n][m], int type){
 
   Latex_Write("\\hline \n");
 printf("n: %d  m: %d\n",n,m );
-for (int i = 0; i < n + 1; i++)
+
+int deadline_p = -1;
+
+for (int i = 0; i < m; i++) {
+    if(result[n][i]== -1){
+      deadline_p = i;
+  }
+}
+for (int i = 0; i < n; i++)
 {
     for (int j = 0; j < m; j++)
     {
 
         printf("%d ", result[i][j]);
         Latex_Write("\\multicolumn{1}{|l|}{");
+
+        if (deadline_p == j) {
+            Latex_Write(color[6]);
+        }
 
         if (1 == result[i][j]) {
           Latex_Write(color[i]);
@@ -260,8 +273,76 @@ Latex_Write("\\end{frame} \n");
 }
 
 
-void Escribir_Test(/* arguments */) {
-  /* code */
+void Escribir_Test(double mu, double bini,double un) {
+  char mu_t[5];
+  snprintf(mu_t, 5, "%.2f", mu);
+  char bini_t[5];
+  snprintf(bini_t, 5, "%.2f", bini);
+  char un_t[5];
+  snprintf(un_t, 5, "%.2f", un);
+
+printf("Entro a Escribir_Test\n");
+Latex_Write("\\begin{frame}{Tests de Schedulability} \n");
+Latex_Write("\\begin{small} \n");
+Latex_Write("\\textbf{Test de Liu y Layland} \n");
+
+Latex_Write("\\begin{itemize} \n");
+Latex_Write("\\item Fórmula: \\( \\mu = \\sum{ c_{i} / p_{i}}  \\leq U(n) =  n(2^{1/n} - 1)  \\) \n");
+Latex_Write("\\item Resultado del test RM: \\( \\mu = ");
+double min = (((mu) < (un)) ? (mu) : (un));
+if(min == mu){
+  Latex_Write(mu_t);
+  Latex_Write("\\leq U(n) = ");
+  Latex_Write(un_t);
+  Latex_Write("\\), ");
+  Latex_Write("\\textbf{aprobada}. \n");
+  Latex_Write("\\item Este conjunto de tareas definitivamente sí correrán con el algoritmo RM.\n");
+}
+else{
+  Latex_Write(mu_t);
+  Latex_Write("\\> U(n) = ");
+  Latex_Write(un_t);
+  Latex_Write(")\\), ");
+  Latex_Write("\\textbf{rechazada}. \n");
+  Latex_Write("\\item Usando RM, puede que para este conjunto de tareas ocurra un incumplimiento del deadline o puede que no.\n");
+}
+Latex_Write("\\item Resultado del test EDF: \\( \\mu = ");
+if(mu <= 1){
+  Latex_Write(mu_t);
+  Latex_Write("\\leq 1 ");
+  Latex_Write("\\), ");
+  Latex_Write("\\textbf{aprobada}. \n");
+  Latex_Write("\\item Este conjunto de tareas definitivamente sí correrán con el algoritmo EDF.\n");
+}
+else{
+  Latex_Write(mu_t);
+  Latex_Write("\\> 1 ");
+  Latex_Write("\\), ");
+  Latex_Write("\\textbf{rechazada}. \n");
+  Latex_Write("\\item Usando EDF, puede que para este conjunto de tareas ocurra un incumplimiento del deadline o puede que no.\n");
+}
+Latex_Write("\\end{itemize} \n");
+Latex_Write("\\textbf{Test de Bini} \n");
+Latex_Write("\\begin{itemize} \n");
+Latex_Write("\\item Fórmula: \\( \\mu = \\prod{ (c_{i} / p_{i}} + 1 ) \\leq 2\\) \n");
+Latex_Write("\\item Resultado del test: \\( \\mu =");
+  if(bini <= 2){
+    Latex_Write(bini_t);
+    Latex_Write("\\leq 2 ");
+    Latex_Write("\\), ");
+    Latex_Write("\\textbf{aprobada}. \n");
+    Latex_Write("\\item Este conjunto de tareas definitivamente sí correrán con el algoritmo de scheduling dado.\n");
+  }
+  else{
+    Latex_Write(bini_t);
+    Latex_Write("\\> 2 ");
+    Latex_Write("\\), ");
+    Latex_Write("\\textbf{rechazada}. \n");
+    Latex_Write("\\item Puede que para este conjunto de tareas ocurra un incumplimiento del deadline o puede que no.\n");
+  }
+Latex_Write("\\end{itemize} \n");
+Latex_Write("\\end{small} \n");
+Latex_Write("\\end{frame} \n");
 }
 
 
