@@ -1,0 +1,162 @@
+% Tecnológico de Costa Rica 
+% Sistemas Operativos Avanzados 
+% 3er proyecto 
+% Scheduling en Tiempo Real 
+ 
+\documentclass{beamer} 
+\usetheme[progressbar=frametitle]{metropolis} 
+\setbeamertemplate{frame numbering}[fraction] 
+\useoutertheme{metropolis} 
+\useinnertheme{metropolis} 
+\usefonttheme{metropolis} 
+\usecolortheme{metropolis} 
+\usepackage[utf8]{inputenc} 
+\usepackage{lmodern} 
+\usepackage[T1]{fontenc} 
+\usepackage{tikz} 
+\usepackage{natbib} 
+\usepackage{hyperref} 
+\usepackage{multirow} 
+\usepackage{colortbl} 
+\usepackage{helvet} 
+\usepackage[export]{adjustbox} % loads also graphicx 
+\usepackage{lipsum} 
+%Definiciones 
+\definecolor{color_columna_candidata}{rgb}{0, 0.424, 0.455} 
+\definecolor{color_pivote}{rgb}{0.973, 0.80, 0.341} 
+\definecolor{color_blanco}{rgb}{1,1,1} 
+% Commands 
+\newcommand\tab[1][1cm]{\hspace*{#1}}  
+\newcommand\minitab[1][0.5cm]{\hspace*{#1}}  
+% Tittle information 
+\title{Scheduling en Tiempo Real} 
+\subtitle{Sistemas Operativos Avanzados} 
+\author[A. \& D. \& E.]{% 
+\texorpdfstring{% 
+\begin{columns} 
+\column{.33\linewidth} 
+\centering 
+\\  Nicole Carvajal \\ 
+\column{.33\linewidth} 
+\centering 
+\\  Rubén González \\ 
+\column{.33\linewidth} 
+\centering 
+\\ Edisson López \\ 
+\end{columns} 
+\begin{columns} 
+\column{.2\linewidth} 
+\centering 
+\\  Otto Mena \\ 
+\column{.2\linewidth} 
+\centering 
+\\  Cristina Soto  \\ 
+\end{columns} 
+} 
+{Author 1, Author 2, Author 3} 
+} 
+\date{} 
+\institute{% 
+\texorpdfstring{% 
+\begin{columns} 
+\column{.9\linewidth} 
+\centering 
+\\ 
+Tecnológico de Costa Rica \\ 
+Maestría de Ciencias de la Computación \\ 
+Semestre 1, 2021 
+\end{columns} 
+} 
+} 
+%Inicio del documento 
+\begin{document} 
+
+% - - 1st Slide - - ; 
+% - - Cover - - - - ; 
+\begin{frame}[plain,t] 
+\maketitle 
+\end{frame} 
+
+
+% - - - - - - - - - ;
+% - - - - 2 - - - - ;
+% Breve introducción del proyecto 
+\begin{frame}{Scheduling en Tiempo Real}
+Simulación del comportamiento de varios algoritmos de scheduling clásicos para Sistemas Operativos de Tiempo Real (RTOS). Con una interaz gráfica hecha con GTK y generación de una presentación Beamer como salida.
+\end{frame}
+
+\begin{frame}{Algoritmo: Rate Monotonic} 
+\begin{itemize} 
+   \item Propuesto por Liu y Layland (1973) 
+   \item Scheduling dinámico de tiempo  
+   \item Es óptimo. 
+   \item Expropiativo, de mayor prioridad primero 
+   \item La prioridad de una tarea es inversamente proporcional a su periodo 
+\end{itemize} 
+\end{frame} 
+\begin{frame}{Algoritmo: Earliest Deadline First} 
+\begin{itemize} 
+   \item Propuesto por Liu y Layland (1973) 
+   \item Scheduling dinámico de tiempo real 
+   \item Es óptimo. 
+   \item Expropiativo, de mayor prioridad primero 
+   \item La prioridad de una tarea es inversamente proporcional al tiempo pendiente para que se dé su deadline 
+\end{itemize} 
+\end{frame} 
+\begin{frame}{Algoritmo: Least Laxity First} 
+\begin{itemize} 
+   \item Propuesto por Leung (1989) 
+   \item Scheduling dinámico de tiempo real 
+   \item Es óptimo. 
+   \item Expropiativo, de mayor prioridad primero 
+   \item La prioridad de una tarea es inversamente proporcional a su laxity. El laxity de la tarea i, d es el deadline, c es el tiempo de computación y t es el momento en el tiempo, se calcula: \( L_{i} = d_{i} - t_{i} - c_{i}\)  
+\end{itemize} 
+\end{frame} 
+\begin{frame}{Tests de Schedulability} 
+\begin{small} 
+\textbf{Test de Liu y Layland} 
+\begin{itemize} 
+\item Fórmula: \( \mu = \sum{ c_{i} / p_{i}}  \leq U(n) =  n(2^{1/n} - 1)  \) 
+\item Resultado del test RM: \( \mu = 0,94\> U(n) = 0,83)\), \textbf{rechazada}. 
+\item Usando RM, puede que para este conjunto de tareas ocurra un incumplimiento del deadline o puede que no.
+\item Resultado del test EDF: \( \mu = 0,94\leq 1 \), \textbf{aprobada}. 
+\item Este conjunto de tareas definitivamente sí correrán con el algoritmo EDF.
+\end{itemize} 
+\textbf{Test de Bini} 
+\begin{itemize} 
+\item Fórmula: \( \mu = \prod{ (c_{i} / p_{i}} + 1 ) \leq 2\) 
+\item Resultado del test: \( \mu =2,17\> 2 \), \textbf{rechazada}. 
+\item Puede que para este conjunto de tareas ocurra un incumplimiento del deadline o puede que no.
+\end{itemize} 
+\end{small} 
+\end{frame} 
+\begin{frame}{Ejecución RM} 
+\begin{center} 
+\begin{tabular}{cccccccccccccccccc} 
+\hline 
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{000000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} \\ \hline 
+\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{000000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} \\ \hline 
+\end{tabular}% 
+\end{center} 
+\end{frame}
+\begin{frame}{Ejecución EDF} 
+\begin{center} 
+\begin{tabular}{cccccccccccccccccc} 
+\hline 
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} \\ \hline 
+\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} \\ \hline 
+\end{tabular}% 
+\end{center} 
+\end{frame}
+\begin{frame}{Ejecución LLF} 
+\begin{center} 
+\begin{tabular}{cccccccccccccccccc} 
+\hline 
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} \\ \hline 
+\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} \\ \hline 
+\end{tabular}% 
+\end{center} 
+\end{frame}
+\end{document}
+% } DOCUMENT 
+% Última línea del documento
