@@ -83,6 +83,12 @@ void Latex_WriteHeader(){
     Latex_Write("\\definecolor{color_columna_candidata}{rgb}{0, 0.424, 0.455} \n");
     Latex_Write("\\definecolor{color_pivote}{rgb}{0.973, 0.80, 0.341} \n");
     Latex_Write("\\definecolor{color_blanco}{rgb}{1,1,1} \n");
+    Latex_Write("\\definecolor{C0}{HTML}{34FF34} \n");
+    Latex_Write("\\definecolor{C1}{HTML}{FE0000} \n");
+    Latex_Write("\\definecolor{C2}{HTML}{3531FF} \n");
+    Latex_Write("\\definecolor{C3}{HTML}{FF8202} \n");
+    Latex_Write("\\definecolor{C4}{HTML}{D122B9} \n");
+    Latex_Write("\\definecolor{C5}{HTML}{680100} \n");
     Latex_Write("% Commands \n");
     Latex_Write("\\newcommand\\tab[1][1cm]{\\hspace*{#1}}  \n");
     Latex_Write("\\newcommand\\minitab[1][0.5cm]{\\hspace*{#1}}  \n");
@@ -162,7 +168,7 @@ void IniciarLatex(){
     Latex_WriteDocument();
 }
 
-void Escribir_Tabla( int n, int m, int result[n][m], int type){
+void Escribir_Tabla( int n, int m, int result[n][m], int type, int periodos[]){
   if (type == 0) {
     Latex_Write("\\begin{frame}{Ejecución RM} \n");
   }
@@ -188,7 +194,33 @@ void Escribir_Tabla( int n, int m, int result[n][m], int type){
   }
     Latex_Write("} \n");
 
-  Latex_Write("\\hline \n");
+printf("Entro antes de flechas\n" );
+char c_t[2];
+
+for (int i = 0; i < m; i++) {
+    if (i != 0) {
+      Latex_Write("&");
+   }
+    Latex_Write("\\multicolumn{1}{l}{");
+    Latex_Write("\\shortstack{");
+  for(int j = 0; j < n; j++){
+    printf("Antes if periodos\n" );
+
+    if (i % periodos[j] == 0) {
+    printf("Entro if periodos\n" );
+
+    Latex_Write(" $\\color{C");
+    snprintf(c_t, 2, "%d", j);
+    Latex_Write(c_t);
+    Latex_Write("}{\\swarrow}$  \\\\");
+    }
+  }
+  Latex_Write("}} ");
+}
+
+Latex_Write("\\\\");
+
+Latex_Write("\\hline \n");
 printf("n: %d  m: %d\n",n,m );
 
 int deadline_p = -1;

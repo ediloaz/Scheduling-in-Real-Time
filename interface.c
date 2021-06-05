@@ -229,7 +229,7 @@ int ALGORITMO_GENERAL_SEPARADO()
     double bini = Bini(n,tiempos,periodos);
     double un = U(n);
     Escribir_Test(mu,bini,un);
-    
+
     //Calculate Rate Monotonic
     int result[n + 1][m];
     for (int i = 0; i<3 ; i++ ){
@@ -241,9 +241,8 @@ int ALGORITMO_GENERAL_SEPARADO()
 
 
 
-
-
-            Escribir_Tabla(n,m,result,i);
+            
+            Escribir_Tabla(n,m,result,i,periodos);
 
             printf("\n\nFinal \n\n");
             for (int i = 0; i < n - 1; i++)
@@ -289,7 +288,7 @@ int ALGORITMO_GENERAL_JUNTO()
             printf("Inicio \n\n");
 
 
-            Escribir_Tabla(n+1,m,result);
+            Escribir_Tabla(n+1,m,result,i,periodos);
 
             printf("\n\nFinal \n\n");
             for (int i = 0; i < n + 1; i++)
