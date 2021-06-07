@@ -25,6 +25,13 @@
 \definecolor{color_columna_candidata}{rgb}{0, 0.424, 0.455} 
 \definecolor{color_pivote}{rgb}{0.973, 0.80, 0.341} 
 \definecolor{color_blanco}{rgb}{1,1,1} 
+\definecolor{C0}{HTML}{34FF34} 
+\definecolor{C1}{HTML}{FE0000} 
+\definecolor{C2}{HTML}{3531FF} 
+\definecolor{C3}{HTML}{FF8202} 
+\definecolor{C4}{HTML}{D122B9} 
+\definecolor{C5}{HTML}{680100} 
+\definecolor{C6}{HTML}{FAFAFA} 
 % Commands 
 \newcommand\tab[1][1cm]{\hspace*{#1}}  
 \newcommand\minitab[1][0.5cm]{\hspace*{#1}}  
@@ -82,13 +89,13 @@ Semestre 1, 2021
 % - - - - 2 - - - - ;
 % Breve introducción del proyecto 
 \begin{frame}{Scheduling en Tiempo Real}
-Simulación del comportamiento de varios algoritmos de scheduling clásicos para Sistemas Operativos de Tiempo Real (RTOS). Con una interaz gráfica hecha con GTK y generación de una presentación Beamer como salida.
+Simulación del comportamiento de varios algoritmos de scheduling clásicos para Sistemas Operativos de Tiempo Real (RTOS). Con una interfaz gráfica hecha con GTK y generación de una presentación Beamer como salida.
 \end{frame}
 
 \begin{frame}{Algoritmo: Rate Monotonic} 
 \begin{itemize} 
    \item Propuesto por Liu y Layland (1973) 
-   \item Scheduling dinámico de tiempo  
+   \item Scheduling de tiempo dinámico  
    \item Es óptimo. 
    \item Expropiativo, de mayor prioridad primero 
    \item La prioridad de una tarea es inversamente proporcional a su periodo 
@@ -97,7 +104,7 @@ Simulación del comportamiento de varios algoritmos de scheduling clásicos para
 \begin{frame}{Algoritmo: Earliest Deadline First} 
 \begin{itemize} 
    \item Propuesto por Liu y Layland (1973) 
-   \item Scheduling dinámico de tiempo real 
+   \item Scheduling de tiempo dinámico real 
    \item Es óptimo. 
    \item Expropiativo, de mayor prioridad primero 
    \item La prioridad de una tarea es inversamente proporcional al tiempo pendiente para que se dé su deadline 
@@ -106,54 +113,54 @@ Simulación del comportamiento de varios algoritmos de scheduling clásicos para
 \begin{frame}{Algoritmo: Least Laxity First} 
 \begin{itemize} 
    \item Propuesto por Leung (1989) 
-   \item Scheduling dinámico de tiempo real 
+   \item Scheduling de tiempo dinámico real 
    \item Es óptimo. 
    \item Expropiativo, de mayor prioridad primero 
-   \item La prioridad de una tarea es inversamente proporcional a su laxity. El laxity de la tarea i, d es el deadline, c es el tiempo de computación y t es el momento en el tiempo, se calcula: \( L_{i} = d_{i} - t_{i} - c_{i}\)  
+   \item La prioridad de una tarea es inversamente proporcional a su laxity. El laxity de la tarea i, d es el deadline, c es el tiempo de computación y t es el momento en el tiempo, se calcula: $( L_{i} = d_{i} - t_{i} - c_{i} )$  
 \end{itemize} 
 \end{frame} 
 \begin{frame}{Tests de Schedulability} 
 \begin{small} 
 \textbf{Test de Liu y Layland} 
 \begin{itemize} 
-\item Fórmula: \( \mu = \sum{ c_{i} / p_{i}}  \leq U(n) =  n(2^{1/n} - 1)  \) 
-\item Resultado del test RM: \( \mu = 0,94\> U(n) = 0,83)\), \textbf{rechazada}. 
+\item Fórmula: $( \mu = \sum{ c_{i} / p_{i}}  \leq U(n) =  n(2^{1/n} - 1)  )$ 
+\item Resultado del test RM: $( \mu = 1,25 > U(n) = 0,83 )$, \textbf{rechazada}. 
 \item Usando RM, puede que para este conjunto de tareas ocurra un incumplimiento del deadline o puede que no.
-\item Resultado del test EDF: \( \mu = 0,94\leq 1 \), \textbf{aprobada}. 
-\item Este conjunto de tareas definitivamente sí correrán con el algoritmo EDF.
+\item Resultado del test EDF: ( \mu = 1,25 > 1 )$, \textbf{rechazada}. 
+\item Usando EDF, puede que para este conjunto de tareas ocurra un incumplimiento del deadline o puede que no.
 \end{itemize} 
 \textbf{Test de Bini} 
 \begin{itemize} 
-\item Fórmula: \( \mu = \prod{ (c_{i} / p_{i}} + 1 ) \leq 2\) 
-\item Resultado del test: \( \mu =2,17\> 2 \), \textbf{rechazada}. 
+\item Fórmula: $( \mu = \prod{ (c_{i} / p_{i}} + 1 ) \leq 2 )$ 
+\item Resultado del test: $( \mu =2,62 > 2 )$, \textbf{rechazada}. 
 \item Puede que para este conjunto de tareas ocurra un incumplimiento del deadline o puede que no.
 \end{itemize} 
 \end{small} 
 \end{frame} 
 \begin{frame}{Ejecución RM} 
 \begin{center} 
-\begin{tabular}{cccccccccccccccccc} 
-\hline 
-\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{000000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} \\ \hline 
-\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{000000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} \\ \hline 
+\begin{tabular}{cccc} 
+\multicolumn{1}{l}{\shortstack{ $\color{C0}{\swarrow}$  \\ $\color{C1}{\swarrow}$  \\}} &\multicolumn{1}{l}{\shortstack{ $\color{C6}{\swarrow}$  \\ $\color{C6}{\swarrow}$  \\}} &\multicolumn{1}{l}{\shortstack{ $\color{C0}{\swarrow}$  \\ $\color{C6}{\swarrow}$  \\}} &\multicolumn{1}{l}{\shortstack{ $\color{C6}{\swarrow}$  \\ $\color{C6}{\swarrow}$  \\}} \\\hline 
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} \\ \hline 
+\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} \\ \hline 
 \end{tabular}% 
 \end{center} 
 \end{frame}
 \begin{frame}{Ejecución EDF} 
 \begin{center} 
-\begin{tabular}{cccccccccccccccccc} 
-\hline 
-\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} \\ \hline 
-\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} \\ \hline 
+\begin{tabular}{cccc} 
+\multicolumn{1}{l}{\shortstack{ $\color{C0}{\swarrow}$  \\ $\color{C1}{\swarrow}$  \\}} &\multicolumn{1}{l}{\shortstack{ $\color{C6}{\swarrow}$  \\ $\color{C6}{\swarrow}$  \\}} &\multicolumn{1}{l}{\shortstack{ $\color{C0}{\swarrow}$  \\ $\color{C6}{\swarrow}$  \\}} &\multicolumn{1}{l}{\shortstack{ $\color{C6}{\swarrow}$  \\ $\color{C6}{\swarrow}$  \\}} \\\hline 
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} \\ \hline 
+\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} \\ \hline 
 \end{tabular}% 
 \end{center} 
 \end{frame}
 \begin{frame}{Ejecución LLF} 
 \begin{center} 
-\begin{tabular}{cccccccccccccccccc} 
-\hline 
-\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} \\ \hline 
-\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} \\ \hline 
+\begin{tabular}{cccc} 
+\multicolumn{1}{l}{\shortstack{ $\color{C0}{\swarrow}$  \\ $\color{C1}{\swarrow}$  \\}} &\multicolumn{1}{l}{\shortstack{ $\color{C6}{\swarrow}$  \\ $\color{C6}{\swarrow}$  \\}} &\multicolumn{1}{l}{\shortstack{ $\color{C0}{\swarrow}$  \\ $\color{C6}{\swarrow}$  \\}} &\multicolumn{1}{l}{\shortstack{ $\color{C6}{\swarrow}$  \\ $\color{C6}{\swarrow}$  \\}} \\\hline 
+\multicolumn{1}{|l|}{\cellcolor[HTML]{34FF34}} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{} \\ \hline 
+\multicolumn{1}{|l|}{} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} &\multicolumn{1}{|l|}{\cellcolor[HTML]{FE0000}} \\ \hline 
 \end{tabular}% 
 \end{center} 
 \end{frame}

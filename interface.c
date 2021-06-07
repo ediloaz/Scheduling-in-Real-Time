@@ -61,6 +61,7 @@ GtkWidget *g_msj_error_6;
 // Referencia de funciones usadas en latex.c
 void Escribir_Test();
 void Escribir_Tabla();
+void Escribir_Tablas();
 void Escribir_AlgoritmoRM();
 void Escribir_AlgoritmoEDF();
 void Escribir_AlgoritmoLLF();

@@ -150,7 +150,7 @@ void Latex_WriteSection2(){
     Latex_Write("% - - - - 2 - - - - ;\n");
     Latex_Write("% Breve introducción del proyecto \n");
     Latex_Write("\\begin{frame}{Scheduling en Tiempo Real}\n");
-    Latex_Write("Simulación del comportamiento de varios algoritmos de scheduling clásicos para Sistemas Operativos de Tiempo Real (RTOS). Con una interaz gráfica hecha con GTK y generación de una presentación Beamer como salida.\n");
+    Latex_Write("Simulación del comportamiento de varios algoritmos de scheduling clásicos para Sistemas Operativos de Tiempo Real (RTOS). Con una interfaz gráfica hecha con GTK y generación de una presentación Beamer como salida.\n");
     Latex_Write("\\end{frame}\n");
     Latex_Write("\n");
 }
@@ -391,7 +391,7 @@ void Escribir_AlgoritmoRM(){
 Latex_Write("\\begin{frame}{Algoritmo: Rate Monotonic} \n");
 Latex_Write("\\begin{itemize} \n");
 Latex_Write("   \\item Propuesto por Liu y Layland (1973) \n");
-Latex_Write("   \\item Scheduling dinámico de tiempo  \n");
+Latex_Write("   \\item Scheduling de tiempo dinámico  \n");
 Latex_Write("   \\item Es óptimo. \n");
 Latex_Write("   \\item Expropiativo, de mayor prioridad primero \n");
 Latex_Write("   \\item La prioridad de una tarea es inversamente proporcional a su periodo \n");
@@ -404,7 +404,7 @@ void Escribir_AlgoritmoEDF() {
 Latex_Write("\\begin{frame}{Algoritmo: Earliest Deadline First} \n");
 Latex_Write("\\begin{itemize} \n");
 Latex_Write("   \\item Propuesto por Liu y Layland (1973) \n");
-Latex_Write("   \\item Scheduling dinámico de tiempo real \n");
+Latex_Write("   \\item Scheduling de tiempo dinámico real \n");
 Latex_Write("   \\item Es óptimo. \n");
 Latex_Write("   \\item Expropiativo, de mayor prioridad primero \n");
 Latex_Write("   \\item La prioridad de una tarea es inversamente proporcional al tiempo pendiente para que se dé su deadline \n");
@@ -416,10 +416,10 @@ void Escribir_AlgoritmoLLF(){
 Latex_Write("\\begin{frame}{Algoritmo: Least Laxity First} \n");
 Latex_Write("\\begin{itemize} \n");
 Latex_Write("   \\item Propuesto por Leung (1989) \n");
-Latex_Write("   \\item Scheduling dinámico de tiempo real \n");
+Latex_Write("   \\item Scheduling de tiempo dinámico real \n");
 Latex_Write("   \\item Es óptimo. \n");
 Latex_Write("   \\item Expropiativo, de mayor prioridad primero \n");
-Latex_Write("   \\item La prioridad de una tarea es inversamente proporcional a su laxity. El laxity de la tarea i, d es el deadline, c es el tiempo de computación y t es el momento en el tiempo, se calcula: \\( L_{i} = d_{i} - t_{i} - c_{i}\\)  \n");
+Latex_Write("   \\item La prioridad de una tarea es inversamente proporcional a su laxity. El laxity de la tarea i, d es el deadline, c es el tiempo de computación y t es el momento en el tiempo, se calcula: $( L_{i} = d_{i} - t_{i} - c_{i} )$  \n");
 Latex_Write("\\end{itemize} \n");
 Latex_Write("\\end{frame} \n");
 }
@@ -439,56 +439,56 @@ Latex_Write("\\begin{small} \n");
 Latex_Write("\\textbf{Test de Liu y Layland} \n");
 
 Latex_Write("\\begin{itemize} \n");
-Latex_Write("\\item Fórmula: \\( \\mu = \\sum{ c_{i} / p_{i}}  \\leq U(n) =  n(2^{1/n} - 1)  \\) \n");
-Latex_Write("\\item Resultado del test RM: \\( \\mu = ");
+Latex_Write("\\item Fórmula: $( \\mu = \\sum{ c_{i} / p_{i}}  \\leq U(n) =  n(2^{1/n} - 1)  )$ \n");
+Latex_Write("\\item Resultado del test RM: $( \\mu = ");
 double min = (((mu) < (un)) ? (mu) : (un));
 if(min == mu){
   Latex_Write(mu_t);
   Latex_Write("\\leq U(n) = ");
   Latex_Write(un_t);
-  Latex_Write("\\), ");
+  Latex_Write(")$, ");
   Latex_Write("\\textbf{aprobada}. \n");
   Latex_Write("\\item Este conjunto de tareas definitivamente sí correrán con el algoritmo RM.\n");
 }
 else{
   Latex_Write(mu_t);
-  Latex_Write("\\> U(n) = ");
+  Latex_Write(" > U(n) = ");
   Latex_Write(un_t);
-  Latex_Write(")\\), ");
+  Latex_Write(" )$, ");
   Latex_Write("\\textbf{rechazada}. \n");
   Latex_Write("\\item Usando RM, puede que para este conjunto de tareas ocurra un incumplimiento del deadline o puede que no.\n");
 }
-Latex_Write("\\item Resultado del test EDF: \\( \\mu = ");
+Latex_Write("\\item Resultado del test EDF: ( \\mu = ");
 if(mu <= 1){
   Latex_Write(mu_t);
   Latex_Write("\\leq 1 ");
-  Latex_Write("\\), ");
+  Latex_Write(")$, ");
   Latex_Write("\\textbf{aprobada}. \n");
   Latex_Write("\\item Este conjunto de tareas definitivamente sí correrán con el algoritmo EDF.\n");
 }
 else{
   Latex_Write(mu_t);
-  Latex_Write("\\> 1 ");
-  Latex_Write("\\), ");
+  Latex_Write(" > 1 ");
+  Latex_Write(")$, ");
   Latex_Write("\\textbf{rechazada}. \n");
   Latex_Write("\\item Usando EDF, puede que para este conjunto de tareas ocurra un incumplimiento del deadline o puede que no.\n");
 }
 Latex_Write("\\end{itemize} \n");
 Latex_Write("\\textbf{Test de Bini} \n");
 Latex_Write("\\begin{itemize} \n");
-Latex_Write("\\item Fórmula: \\( \\mu = \\prod{ (c_{i} / p_{i}} + 1 ) \\leq 2\\) \n");
-Latex_Write("\\item Resultado del test: \\( \\mu =");
+Latex_Write("\\item Fórmula: $( \\mu = \\prod{ (c_{i} / p_{i}} + 1 ) \\leq 2 )$ \n");
+Latex_Write("\\item Resultado del test: $( \\mu =");
   if(bini <= 2){
     Latex_Write(bini_t);
     Latex_Write("\\leq 2 ");
-    Latex_Write("\\), ");
+    Latex_Write(")$, ");
     Latex_Write("\\textbf{aprobada}. \n");
     Latex_Write("\\item Este conjunto de tareas definitivamente sí correrán con el algoritmo de scheduling dado.\n");
   }
   else{
     Latex_Write(bini_t);
-    Latex_Write("\\> 2 ");
-    Latex_Write("\\), ");
+    Latex_Write(" > 2 ");
+    Latex_Write(")$, ");
     Latex_Write("\\textbf{rechazada}. \n");
     Latex_Write("\\item Puede que para este conjunto de tareas ocurra un incumplimiento del deadline o puede que no.\n");
   }
