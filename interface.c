@@ -501,7 +501,7 @@ int ValidarAlgoritmosSeleccionados(){
 
 // Valida por cada tarea si el tiempo es menor al período
 int ValidarCongruenciaTiemposConPeriodos(){
-
+    
     if (tiempos[0] >= periodos[0]  &&  gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1 ){
         gtk_widget_set_child_visible(g_msj_error_1, true);
     }else{
@@ -537,6 +537,23 @@ int ValidarCongruenciaTiemposConPeriodos(){
     }else{
         gtk_widget_set_child_visible(g_msj_error_6, false);
     }
+    
+    if ( (tiempos[0] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1) ||
+         (tiempos[1] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_2)==1) ||
+         (tiempos[2] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_3)==1) ||
+         (tiempos[3] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_4)==1) ||
+         (tiempos[4] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_5)==1) ||
+         (tiempos[5] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_6)==1) ||
+         (periodos[0] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1) ||
+         (periodos[1] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_2)==1) ||
+         (periodos[2] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_3)==1) ||
+         (periodos[3] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_4)==1) ||
+         (periodos[4] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_5)==1) ||
+         (periodos[5] <= 0 && gtk_widget_get_child_visible(g_entry_tarea_tiempo_6)==1)
+    ){
+        printf(" > Formato inválido, debe ser mayor a 0 cada tiempo y período. \n");
+        return 0;
+    }
 
     if ( (tiempos[0] >= periodos[0] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1) ||
          (tiempos[1] >= periodos[1] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_2)==1) ||
@@ -547,9 +564,10 @@ int ValidarCongruenciaTiemposConPeriodos(){
     ){
         printf(" > Formato inválido, el tiempo debe ser menor al período. \n");
         return 0;
-    }else{
-        return 1;
     }
+
+    return 1;
+    
 }
 
 void IniciarEjecucion(){
