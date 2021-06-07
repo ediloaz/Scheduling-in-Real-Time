@@ -11,8 +11,7 @@
 /*
 
 COMANDO PARA CORRER:
-gcc -o interface interface.c -lm -Wall `pkg-config --cflags --libs gtk+-3.0` -export-dynamic ; ./interface
-
+gcc -o interface interface.c -lm -Wall `pkg-config --cflags --libs gtk+-3.0` -export-dynamic latex.c ; ./interface
 */
 
 
@@ -65,8 +64,8 @@ void Escribir_Tabla();
 void Escribir_AlgoritmoRM();
 void Escribir_AlgoritmoEDF();
 void Escribir_AlgoritmoLLF();
-void IniciarLatex(); 
-void TerminarLatex(); 
+void IniciarLatex();
+void TerminarLatex();
 
 
 // Utilidades para pruebas durante el desarrollo
