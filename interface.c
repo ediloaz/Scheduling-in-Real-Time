@@ -555,12 +555,12 @@ int ValidarCongruenciaTiemposConPeriodos(){
         return 0;
     }
 
-    if ( (tiempos[0] >= periodos[0] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1) ||
-         (tiempos[1] >= periodos[1] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_2)==1) ||
-         (tiempos[2] >= periodos[2] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_3)==1) ||
-         (tiempos[3] >= periodos[3] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_4)==1) ||
-         (tiempos[4] >= periodos[4] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_5)==1) ||
-         (tiempos[5] >= periodos[5] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_6)==1)
+    if ( (tiempos[0] > periodos[0] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_1)==1) ||
+         (tiempos[1] > periodos[1] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_2)==1) ||
+         (tiempos[2] > periodos[2] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_3)==1) ||
+         (tiempos[3] > periodos[3] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_4)==1) ||
+         (tiempos[4] > periodos[4] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_5)==1) ||
+         (tiempos[5] > periodos[5] && gtk_widget_get_child_visible(g_entry_tarea_tiempo_6)==1)
     ){
         printf(" > Formato inválido, el tiempo debe ser menor al período. \n");
         return 0;
