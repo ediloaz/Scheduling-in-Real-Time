@@ -404,7 +404,7 @@ void Escribir_AlgoritmoEDF() {
 Latex_Write("\\begin{frame}{Algoritmo: Earliest Deadline First} \n");
 Latex_Write("\\begin{itemize} \n");
 Latex_Write("   \\item Propuesto por Liu y Layland (1973) \n");
-Latex_Write("   \\item Scheduling de tiempo dinámico real \n");
+Latex_Write("   \\item Scheduling dinámico de tiempo real \n");
 Latex_Write("   \\item Es óptimo. \n");
 Latex_Write("   \\item Expropiativo, de mayor prioridad primero \n");
 Latex_Write("   \\item La prioridad de una tarea es inversamente proporcional al tiempo pendiente para que se dé su deadline \n");
@@ -416,7 +416,7 @@ void Escribir_AlgoritmoLLF(){
 Latex_Write("\\begin{frame}{Algoritmo: Least Laxity First} \n");
 Latex_Write("\\begin{itemize} \n");
 Latex_Write("   \\item Propuesto por Leung (1989) \n");
-Latex_Write("   \\item Scheduling de tiempo dinámico real \n");
+Latex_Write("   \\item Scheduling dinámico de tiempo real \n");
 Latex_Write("   \\item Es óptimo. \n");
 Latex_Write("   \\item Expropiativo, de mayor prioridad primero \n");
 Latex_Write("   \\item La prioridad de una tarea es inversamente proporcional a su laxity. El laxity de la tarea i, d es el deadline, c es el tiempo de computación y t es el momento en el tiempo, se calcula: $( L_{i} = d_{i} - t_{i} - c_{i} )$  \n");
